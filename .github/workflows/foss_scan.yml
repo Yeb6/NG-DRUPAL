@@ -29,27 +29,48 @@ jobs:
           curl -Iv https://repo.blackduck.com || true
           curl -Iv https://detect.synopsys.com || true
 
-      # ---- Download Detect Script ----
-      - name: Download Detect launcher
+      # # ---- Download Detect Script ----
+      # - name: Download Detect launcher
+      #   run: |
+      #     curl -v -L https://detect.synopsys.com/detect.sh -o detect.sh
+      #     chmod +x detect.sh
+
+      - name: Download Black Duck Detect JAR (OFFICIAL)
         run: |
-          curl -v -L https://detect.synopsys.com/detect.sh -o detect.sh
-          chmod +x detect.sh
+          mkdir -p $HOME/blackduck
+          curl -fL \
+            https://repo.blackduck.com/bds-integrations-release/com/synopsys/integration/synopsys-detect/latest/synopsys-detect.jar \
+            -o $HOME/blackduck/detect.jar
+          file $HOME/blackduck/detect.jar
+          ls -lh $HOME/blackduck/detect.jar
+
 
       # ---- Inspect downloaded file (CRITICAL PROOF) ----
-      - name: Inspect downloaded detect.sh
-        run: |
-          echo "==== FIRST 20 LINES ===="
-          head -n 20 detect.sh || true
-          echo
-          echo "==== FILE TYPE ===="
-          file detect.sh || true
+      # - name: Inspect downloaded detect.sh
+      #   run: |
+      #     echo "==== FIRST 20 LINES ===="
+      #     head -n 20 detect.sh || true
+      #     echo
+      #     echo "==== FILE TYPE ===="
+      #     file detect.sh || true
 
       # ---- Detect BOOT ONLY (no auth, no scan) ----
-      - name: Run Detect (BOOT DEBUG ONLY)
+      # - name: Run Detect (BOOT DEBUG ONLY)
+      #   run: |
+      #     ./detect.sh \
+      #       --logging.level.com.synopsys.integration=DEBUG \
+      #       --detect.tools=NONE \
+      #       --detect.source.path=. \
+      #       --detect.cleanup=false \
+      #       --blackduck.offline.mode=true || true
+
+      - name: Detect BOOT diagnostics (NO SCAN)
         run: |
-          ./detect.sh \
+          java -jar $HOME/blackduck/detect.jar \
             --logging.level.com.synopsys.integration=DEBUG \
             --detect.tools=NONE \
             --detect.source.path=. \
             --detect.cleanup=false \
             --blackduck.offline.mode=true || true
+
+

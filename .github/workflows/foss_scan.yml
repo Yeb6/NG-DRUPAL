@@ -1,116 +1,45 @@
-name: BD Scan
- 
+name: Black Duck Detect – Boot Diagnostics
+
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: "Deploy Environment"
-        required: true
-        default: "PROD"
-        type: choice
-        options:
-          - INT
-          - PROD
 
-      use_mb_template:
-        description: 'Use "Mercedes-Benz Default" template for SBOM report creation?'
-        required: false
-        type: boolean
-        default: false
-
-      sbom_tag:
-        description: "Tag for the SBOM to be uploaded into the Disclosure Portal"
-        required: false
-        default: "latest"
-
-      upload_report:
-        description: "Upload the Report as an artifact?"
-        required: false
-        type: boolean
-        default: false
-
-  pull_request:
-    branches:
-      - master
- 
 jobs:
-  blackduck-detect:
-    name: Black Duck Detect Scan
-    runs-on: [road-runner]
+  detect-boot-debug:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Download Black Duck Detect
+      - name: Install minimal prerequisites
         run: |
-          curl -fL https://sig-repo.synopsys.com/api/storage/bds-integrations-release/com/synopsys/integration/synopsys-detect/latest/synopsys-detect-linux.sh -o detect.sh
-          chmod +x detect.sh
+          sudo apt-get update
+          sudo apt-get install -y curl unzip java-common
 
-      - name: Run Black Duck Detect (Drupal / Composer)
-        env:
-          BLACKDUCK_URL: https://mercedes-benz.app.blackduck.com
-          BLACKDUCK_API_TOKEN: ${{ secrets.BLACKDUCK_API_TOKEN }}
+      # ---- Network Proof ----
+      - name: Network diagnostics (Black Duck endpoints)
+        run: |
+          echo "=== DNS ==="
+          nslookup repo.blackduck.com || true
+          nslookup detect.synopsys.com || true
+
+          echo "=== HTTPS HEAD ==="
+          curl -Iv https://repo.blackduck.com || true
+          curl -Iv https://detect.synopsys.com || true
+
+      # ---- Download Detect Script ----
+      - name: Download Detect launcher
+        run: |
+          curl -v -L https://detect.synopsys.com/detect.sh -o detect.sh
+          chmod +x detect.sh
+          head -n 5 detect.sh || true
+
+      # ---- Detect BOOT ONLY (no auth, no scan) ----
+      - name: Run Detect (BOOT DEBUG ONLY)
         run: |
           ./detect.sh \
-            --blackduck.url="$BLACKDUCK_URL" \
-            --blackduck.api.token="$BLACKDUCK_API_TOKEN" \
-            --detect.project.name="eWS" \
-            --detect.project.version.name="1.0" \
-            --detect.tools=COMPOSER \
-            --detect.source.path="." \
-            --detect.composer.path=composer \
-            --detect.php.include.dev.dependencies=true \
-            --detect.excluded.detector.types=GIT \
-            --detect.wait.for.results=true
-
-  bd_to_disco:
-    name: Black Duck to Disclosure
-    runs-on: [road-runner]
-    needs: blackduck-detect
-    environment:
-      name: ${{ github.event.inputs.environment }}
-
-    env:
-      # ---- Black Duck ----
-      BLACK_DUCK_API_TOKEN: ${{ secrets.BLACKDUCK_API_TOKEN }}
-      BLACK_DUCK_URL: https://mercedes-benz.app.blackduck.com
-      BLACK_DUCK_PROJECT_NAME: "eWS"
-      BLACK_DUCK_PROJECT_VERSION: "1.0"
-
-      # ---- Disclosure Portal ----
-      DISCO_API_TOKEN: ${{ secrets.DISCO_API_TOKEN }}
-      DISCO_HOST: https://production.gorillas.mercedes-benz.com
-      DISCO_API: /disco/v1
-      DISCO_PROJECT_UUID: ${{ secrets.DISCO_PROJECT_UUID }}
-      DISCO_PROJECT_VERSION: "1.0"
-      DISCO_SBOM_TAG: ${{ github.event.inputs.sbom_tag }}
-
-    steps:
-      - name: Set Template
-        run: |
-          if [[ "${{ github.event.inputs.use_mb_template }}" == "true" ]]; then
-            echo "BLACK_DUCK_MB_TEMPLATE=Mercedes-Benz Default" >> "$GITHUB_ENV"
-          fi
-
-      - name: Upload SBOM from Black Duck to Disclosure Portal
-        uses: action/bd-to-disco@main
-        with:
-          black-duck-api-token: ${{ env.BLACK_DUCK_API_TOKEN }}
-          black-duck-url: ${{ env.BLACK_DUCK_URL }}
-          black-duck-project-name: ${{ env.BLACK_DUCK_PROJECT_NAME }}
-          black-duck-project-version: ${{ env.BLACK_DUCK_PROJECT_VERSION }}
-          black-duck-mb-template: ${{ env.BLACK_DUCK_MB_TEMPLATE }}
-          disco-api-token: ${{ env.DISCO_API_TOKEN }}
-          disco-host: ${{ env.DISCO_HOST }}
-          disco-project-uuid: ${{ env.DISCO_PROJECT_UUID }}
-          disco-project-version: ${{ env.DISCO_PROJECT_VERSION }}
-          disco-sbom-tag: ${{ env.DISCO_SBOM_TAG }}
-          keep-downloads: true
-
-      - name: Upload SBOM Report as Artifact
-        if: ${{ github.event.inputs.upload_report }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: bd_report
-          path: "**/*.json"
+            --logging.level.com.synopsys.integration=DEBUG \
+            --detect.tools=NONE \
+            --detect.source.path=. \
+            --detect.cleanup=false \
+            --blackduck.offline.mode=true || true

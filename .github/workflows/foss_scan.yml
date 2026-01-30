@@ -5,25 +5,27 @@ on:
 
 jobs:
   detect-boot-debug:
+    name: Detect Boot Debug (No Scan)
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      # ---- Minimal runtime dependencies ----
       - name: Install minimal prerequisites
         run: |
           sudo apt-get update
-          sudo apt-get install -y curl unzip java-common
+          sudo apt-get install -y curl unzip default-jre
 
       # ---- Network Proof ----
       - name: Network diagnostics (Black Duck endpoints)
         run: |
-          echo "=== DNS ==="
+          echo "=== DNS CHECK ==="
           nslookup repo.blackduck.com || true
           nslookup detect.synopsys.com || true
-
-          echo "=== HTTPS HEAD ==="
+          echo
+          echo "=== HTTPS HEAD CHECK ==="
           curl -Iv https://repo.blackduck.com || true
           curl -Iv https://detect.synopsys.com || true
 
@@ -32,7 +34,15 @@ jobs:
         run: |
           curl -v -L https://detect.synopsys.com/detect.sh -o detect.sh
           chmod +x detect.sh
-          head -n 5 detect.sh || true
+
+      # ---- Inspect downloaded file (CRITICAL PROOF) ----
+      - name: Inspect downloaded detect.sh
+        run: |
+          echo "==== FIRST 20 LINES ===="
+          head -n 20 detect.sh || true
+          echo
+          echo "==== FILE TYPE ===="
+          file detect.sh || true
 
       # ---- Detect BOOT ONLY (no auth, no scan) ----
       - name: Run Detect (BOOT DEBUG ONLY)

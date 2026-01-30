@@ -39,7 +39,7 @@ jobs:
         run: |
           mkdir -p $HOME/blackduck
           curl -fL \
-            https://repo.blackduck.com/bds-integrations-release/com/synopsys/integration/synopsys-detect/latest/synopsys-detect.jar \
+            https://repo.blackduck.com/bds-integrations-release/com/synopsys/integration/synopsys-detect/9.9.0/synopsys-detect-9.9.0.jar \
             -o $HOME/blackduck/detect.jar
           file $HOME/blackduck/detect.jar
           ls -lh $HOME/blackduck/detect.jar

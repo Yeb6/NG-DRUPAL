@@ -68,7 +68,6 @@ jobs:
         run: |
           java -jar $HOME/blackduck/detect.jar \
             --logging.level.com.synopsys.integration=DEBUG \
-            --detect.tools=NONE \
             --detect.source.path=. \
             --detect.cleanup=false \
             --blackduck.offline.mode=true || true

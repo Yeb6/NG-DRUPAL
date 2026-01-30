@@ -1,0 +1,42 @@
+display:
+  default:
+    display_title: Predefinito
+    display_options:
+      fields:
+        title:
+          label: Titolo
+        type:
+          label: 'Tipo di contenuto'
+        name:
+          label: Autore
+        changed:
+          label: Aggiornato
+        operations:
+          label: Operazioni
+      pager:
+        options:
+          tags:
+            next: 'Seguente ›'
+            previous: '‹ Precedente'
+            first: '« Prima'
+            last: 'Ultima »'
+          expose:
+            items_per_page_label: 'Voci per pagina'
+            items_per_page_options_all_label: '- Tutto -'
+            offset_label: Scostamento
+      exposed_form:
+        options:
+          submit_button: Filtra
+          reset_button_label: Ripristina
+          exposed_sorts_label: 'Ordina per'
+          sort_desc_label: Disc
+      filters:
+        title:
+          expose:
+            label: Titolo
+        type:
+          expose:
+            label: 'Tipo di contenuto'
+        langcode:
+          expose:
+            label: Lingua

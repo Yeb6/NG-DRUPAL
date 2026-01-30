@@ -1,0 +1,43 @@
+display:
+  default:
+    display_title: Alapértelmezés
+    display_options:
+      fields:
+        title:
+          label: Cím
+        type:
+          label: Tartalomtípus
+        name:
+          label: Szerző
+        changed:
+          label: Frissítve
+        operations:
+          label: Műveletek
+      pager:
+        options:
+          tags:
+            next: 'Következő ›'
+            previous: '‹ Előző'
+            first: '« Első'
+            last: 'Utolsó »'
+          expose:
+            items_per_page_label: 'Elemek száma oldalanként'
+            items_per_page_options_all_label: '– Mind –'
+            offset_label: Eltolás
+      exposed_form:
+        options:
+          submit_button: Szűrő
+          reset_button_label: Alaphelyzet
+          exposed_sorts_label: Rendezés
+          sort_asc_label: Növ
+          sort_desc_label: Csökk
+      filters:
+        title:
+          expose:
+            label: Cím
+        type:
+          expose:
+            label: Tartalomtípus
+        langcode:
+          expose:
+            label: Nyelv

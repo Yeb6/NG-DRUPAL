@@ -1,0 +1,14 @@
+uuid: 655e383f-c2c6-424a-a7e3-37c6b6a8a54e
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.market_admin
+  module:
+    - user
+id: user_remove_role_action.market_admin
+label: 'Remove the Market Admin role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: market_admin

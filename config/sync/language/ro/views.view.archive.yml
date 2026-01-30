@@ -1,0 +1,24 @@
+label: Arhivă
+description: 'Tot conținutul, după lună.'
+display:
+  default:
+    display_title: Implicit
+    display_options:
+      title: 'Arhivă lunară'
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Elemente pe pagină'
+            items_per_page_options_all_label: '- Toate -'
+            offset_label: Decalaj
+      exposed_form:
+        options:
+          submit_button: Aplică
+          reset_button_label: Resetează
+          exposed_sorts_label: 'Sortare după'
+          sort_asc_label: Ascendent
+          sort_desc_label: Descendent
+  block_1:
+    display_title: Bloc
+  page_1:
+    display_title: Pagina

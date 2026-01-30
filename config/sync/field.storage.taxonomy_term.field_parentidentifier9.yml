@@ -1,0 +1,21 @@
+uuid: 54a5d280-c9ae-40aa-b2fc-a30fb5ca8640
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.field_parentidentifier9
+field_name: field_parentidentifier9
+entity_type: taxonomy_term
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

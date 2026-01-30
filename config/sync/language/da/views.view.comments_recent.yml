@@ -1,0 +1,20 @@
+label: 'Seneste kommentarer'
+description: 'Seneste kommentarer.'
+display:
+  default:
+    display_title: Standard
+    display_options:
+      title: 'Seneste kommentarer'
+      fields:
+        changed:
+          settings:
+            future_format: 'om @interval'
+            past_format: '@interval siden'
+      empty:
+        area_text_custom:
+          content: 'Der er ingen kommentarer at vise.'
+  block_1:
+    display_title: Blok
+    display_options:
+      block_description: 'Seneste kommentarer'
+      block_category: 'Lister (Views)'

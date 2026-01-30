@@ -1,0 +1,9 @@
+uuid: a71362a4-63a7-4b55-924b-3f91bf254b93
+langcode: en
+status: true
+dependencies: {  }
+name: 'Content Hierarchy'
+vid: content_hierarchy
+description: 'Display content in a listing page based on taxonomy hierarchy, showing parent, child, and sub-child relationships'
+weight: 0
+new_revision: false

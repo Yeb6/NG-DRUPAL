@@ -1,0 +1,14 @@
+uuid: bcbba931-7aee-434f-ad29-0b33285986dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.msmr_hq_editor
+  module:
+    - user
+id: user_add_role_action.msmr_hq_editor
+label: 'Add the MSMR HQ Editor role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: msmr_hq_editor

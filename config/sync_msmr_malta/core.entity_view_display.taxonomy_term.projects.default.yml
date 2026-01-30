@@ -1,0 +1,39 @@
+uuid: 8ace68e3-5e0c-44b0-ab27-0f8a25a3be74
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.projects.field_project_code
+    - field.field.taxonomy_term.projects.field_project_name
+    - taxonomy.vocabulary.projects
+  module:
+    - text
+id: taxonomy_term.projects.default
+targetEntityType: taxonomy_term
+bundle: projects
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_project_code:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_project_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

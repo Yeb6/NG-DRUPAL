@@ -1,0 +1,25 @@
+uuid: a9d7a808-f8bb-4978-b5ac-75480606f3bf
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - fs_theme
+_core:
+  default_config_hash: n_nlgjggHVfQt2H__zvLOKB2YtjPDbQ5tHijF9LE1aM
+id: fs_theme_site_branding
+theme: fs_theme
+region: header
+weight: -8
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }

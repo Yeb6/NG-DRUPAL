@@ -1,0 +1,17 @@
+uuid: 04e00e8d-2433-4a74-b6e4-077785c4cc3f
+langcode: en
+status: true
+dependencies: {  }
+id: mb_article_bg
+label: 'MB Article BG'
+channel_entity_type: node
+channel_bundle: fs_article
+channel_langcode: bg
+channel_filters: null
+channel_groups: null
+channel_sorts: {  }
+channel_searches: null
+channel_maxsize: 50
+access_by_permission: true
+authorized_roles: {  }
+authorized_users: {  }

@@ -1,0 +1,14 @@
+uuid: b34def55-ebcf-47d8-b977-e5d1f3bf59eb
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.market_editor
+  module:
+    - user
+id: user_add_role_action.market_editor
+label: 'Add the Market Editor role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: market_editor

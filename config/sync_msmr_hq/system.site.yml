@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: ijfbzDTN4CbE7Sr-6ubWzy_t1vH4OtU1doNCLssVz-4
+langcode: en
+uuid: 2f20fc32-5154-4219-a843-5c63b04ac80c
+name: 'MSMR '
+mail: jay.vala@nagarro.com
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /admin/dashboard
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en
+mail_notification: null

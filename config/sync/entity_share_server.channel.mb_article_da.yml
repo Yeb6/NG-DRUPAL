@@ -1,0 +1,23 @@
+uuid: 85ebc25b-aef0-47ba-a3ec-054234032897
+langcode: en
+status: true
+dependencies: {  }
+id: mb_article_da
+label: 'MB Article DA'
+channel_entity_type: node
+channel_bundle: fs_article
+channel_langcode: da
+channel_filters:
+  field_moderation_status:
+    path: field_moderation_status
+    operator: IN
+    value:
+      - ready_for_distribution
+      - published
+channel_groups: null
+channel_sorts: {  }
+channel_searches: null
+channel_maxsize: 50
+access_by_permission: true
+authorized_roles: {  }
+authorized_users: {  }

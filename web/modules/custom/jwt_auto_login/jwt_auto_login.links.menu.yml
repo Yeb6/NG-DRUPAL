@@ -1,0 +1,6 @@
+jwt_auto_login.settings:
+  title: 'JWT Auto Login Settings'
+  description: 'Configure role-to-site mappings for auto login.'
+  parent: system.admin_config_system
+  route_name: jwt_auto_login.settings
+  weight: 100

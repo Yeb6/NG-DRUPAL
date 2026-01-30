@@ -1,0 +1,23 @@
+hq:
+  root: ./../../web
+  uri: default
+
+usapc:
+  root: ./../../web
+  uri: wmr-usapc
+
+usavan:
+  root: ./../../web
+  uri: wmr-usavan
+
+msmr:
+  root: ./../../web
+  uri: msmr
+
+msmr-malta:
+  root: ./../../web
+  uri: msmr-malta
+
+msmr-polen:
+  root: ./../../web
+  uri: msmr-polen

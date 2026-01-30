@@ -1,0 +1,21 @@
+uuid: 5d651882-b1c3-49e0-9a38-f69b87c6f77b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_article_hierarchy
+    - node.type.fs_article
+  module:
+    - fs_article_tools
+id: node.fs_article.field_article_hierarchy
+field_name: field_article_hierarchy
+entity_type: node
+bundle: fs_article
+label: 'Article Hierarchy'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: articles_hierarchy

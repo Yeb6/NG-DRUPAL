@@ -1,0 +1,34 @@
+uuid: 19f2be15-f6b9-4d46-b666-ae609f478733
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.create_section.field_category_selection
+    - field.field.paragraph.create_section.field_content
+    - paragraphs.paragraphs_type.create_section
+  module:
+    - text
+id: paragraph.create_section.default
+targetEntityType: paragraph
+bundle: create_section
+mode: default
+content:
+  field_category_selection:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_content:
+    type: text_textarea_with_summary
+    weight: 1
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

@@ -1,0 +1,68 @@
+# Composer dependencies
+/vendor/
+
+# Drupal core (managed by Composer)
+/web/core/
+!/web/sites/
+/web/modules/contrib/
+/web/themes/contrib/
+/web/profiles/contrib/
+/web/libraries/
+
+# Ignore all sites/* files directories (per site), but keep the site structure
+/web/sites/*/files/
+/web/sites/*/private/
+
+# Ignore environment-specific configuration files
+/web/sites/*/settings*.php
+/web/sites/*/services*.yml
+
+/web/sites/*/settings.php
+/web/sites/*/services.yml
+
+# Ignore local settings
+/web/sites/*/local.settings.php
+
+# Ignore sync directory if stored in sites (adjust if different)
+#/web/sites/*/config/
+# OR customize your config ignore like this:
+/web/sites/*/config_*/ # Optional: only if config is in per-site directories
+
+# Keep custom modules and themes
+!/web/modules/custom/
+!/web/themes/custom/
+
+# Node dependencies and build artifacts in custom themes/modules
+/web/modules/custom/**/node_modules/
+/web/themes/custom/**/node_modules/
+/web/modules/custom/**/dist/
+/web/themes/custom/**/dist/
+/web/modules/custom/**/build/
+/web/themes/custom/**/build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE/editor/project files
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.bak
+*.tmp
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# PHPUnit & test output
+.phpunit.result.cache
+
+# Drush backup and site files
+/drush/backups/
+/drush/sites/self.site.yml
+
+# Logs
+*.log
+/web/sites/*/*.log

@@ -1,0 +1,18 @@
+uuid: 5e216d2f-811d-429e-87be-974deec7208d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.drupal_news
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: node.drupal_news
+target_entity_type_id: node
+target_bundle: drupal_news
+default_langcode: site_default
+language_alterable: true

@@ -1,0 +1,21 @@
+uuid: b97c8a0d-bf2e-4d0d-b888-650a35eb49f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_category_selection
+    - paragraphs.paragraphs_type.create_section
+  module:
+    - options
+id: paragraph.create_section.field_category_selection
+field_name: field_category_selection
+entity_type: paragraph
+bundle: create_section
+label: 'Category Selection'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

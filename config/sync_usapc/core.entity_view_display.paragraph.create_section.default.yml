@@ -1,0 +1,31 @@
+uuid: 3578064c-ce3c-411d-8897-e027d43e8620
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.create_section.field_category_selection
+    - field.field.paragraph.create_section.field_content
+    - paragraphs.paragraphs_type.create_section
+  module:
+    - options
+    - text
+id: paragraph.create_section.default
+targetEntityType: paragraph
+bundle: create_section
+mode: default
+content:
+  field_category_selection:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_content:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

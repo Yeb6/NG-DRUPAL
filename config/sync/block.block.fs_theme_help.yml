@@ -1,0 +1,22 @@
+uuid: cb9378b6-43dd-43fa-bd67-4dd25824c467
+langcode: en
+status: false
+dependencies:
+  module:
+    - help
+  theme:
+    - fs_theme
+_core:
+  default_config_hash: VfPFqqxfkomud5CO8DUijw85QIl9GIxh_nIxLOYESxg
+id: fs_theme_help
+theme: fs_theme
+region: header
+weight: -6
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

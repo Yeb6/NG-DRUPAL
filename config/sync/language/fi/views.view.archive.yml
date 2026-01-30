@@ -1,0 +1,21 @@
+label: Arkisto
+description: 'Kaikki sisältö, kuukausittain lajiteltuna.'
+display:
+  default:
+    display_title: Oletus
+    display_options:
+      title: Arkisto
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Merkintöjä sivua kohti'
+            items_per_page_options_all_label: '- Kaikki -'
+      exposed_form:
+        options:
+          submit_button: Käytä
+          reset_button_label: Palauta
+          exposed_sorts_label: Lajittele
+  block_1:
+    display_title: Lohko
+  page_1:
+    display_title: Sivu

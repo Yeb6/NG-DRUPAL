@@ -1,0 +1,6 @@
+settings:
+  plugins:
+    ckeditor5_codeBlock:
+      languages:
+        5:
+          label: Diff

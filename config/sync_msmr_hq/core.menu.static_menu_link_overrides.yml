@@ -1,0 +1,99 @@
+_core:
+  default_config_hash: CXhei_vpaZk-3f_Mj2cH0YmpK-ZpKHoSzVA3yZrDq0g
+definitions:
+  contact__site_page:
+    menu_name: footer
+    parent: ''
+    weight: 0
+    expanded: false
+    enabled: true
+  system__admin:
+    menu_name: admin
+    parent: ''
+    weight: 1
+    expanded: false
+    enabled: true
+  system__admin_content:
+    weight: -97
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  system__admin_structure:
+    weight: -96
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  system__themes_page:
+    weight: -95
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  system__modules_list:
+    weight: -94
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  system__admin_config:
+    weight: -93
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  entity__user__collection:
+    weight: -92
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  system__admin_reports:
+    weight: -91
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  help__main:
+    weight: -90
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  announcements_feed__announcement:
+    weight: -89
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  jwt_auto_login__markets_menu:
+    weight: -99
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  admin_toolbar_tools__flush:
+    weight: -99
+    menu_name: admin
+    parent: admin_toolbar_tools.help
+    enabled: true
+    expanded: false
+  system__run_cron:
+    weight: -98
+    menu_name: admin
+    parent: admin_toolbar_tools.help
+    expanded: false
+    enabled: true
+  system__db_update:
+    weight: -97
+    menu_name: admin
+    parent: admin_toolbar_tools.help
+    expanded: false
+    enabled: true
+  'admin_toolbar_tools__extra_links:user__logout':
+    weight: -95
+    menu_name: admin
+    parent: admin_toolbar_tools.help
+    expanded: false
+    enabled: true

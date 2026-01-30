@@ -1,0 +1,18 @@
+uuid: e1aee461-74ce-4546-903a-e95af4e1d962
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.content_hierarchy
+id: taxonomy_term.content_hierarchy.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: content_hierarchy
+label: Changed
+description: 'The time that the term was last edited.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

@@ -1,0 +1,11 @@
+name: Moderation Status Sync
+type: module
+description: "Update moderation status between related content types"
+core_version_requirement: ^10 || ^11
+package: Custom
+dependencies:
+  - content_moderation
+  - hook_event_dispatcher
+  - core_event_dispatcher
+  - language
+  - entity_share

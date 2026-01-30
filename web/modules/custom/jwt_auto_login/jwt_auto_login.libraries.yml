@@ -1,0 +1,5 @@
+toolbar_styles:
+  version: 1.x
+  css:
+    theme:
+      css/toolbar_style.css: {}

@@ -1,0 +1,75 @@
+{
+    "family": "ews",
+    "containerDefinitions": [
+        {
+            "cpu": 0,
+            "environment": [
+                {
+                    "name": "DRUPAL_DB_HOST",
+                    "value": "<DRUPAL_PROD_DB_HOST>"
+                },
+                {
+                    "name": "DRUPAL_DB_USERNAME",
+                    "value": "<DRUPAL_PROD_DB_USERNAME>"
+                },
+                {
+                    "name": "DRUPAL_DB_PASSWORD",
+                    "value": "<DRUPAL_PROD_DB_PASSWORD>"
+                }
+            ],
+            "essential": true,
+            "image": "386893269569.dkr.ecr.eu-central-1.amazonaws.com/prod/ews:latest",
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ews/prod/",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "eu-central-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "mountPoints": [
+                {
+                    "containerPath": "/var/www/html/web/sites",
+                    "sourceVolume": "ews-efs-sites"
+                }
+            ],
+            "name": "ews",
+            "portMappings": [
+                {
+                    "appProtocol": "http",
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "name": "http",
+                    "protocol": "tcp"
+                }
+            ],
+            "systemControls": [],
+            "volumesFrom": []
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::386893269569:role/eWS-ecs-generic-task-role-prod",
+    "executionRoleArn": "arn:aws:iam::386893269569:role/eWS-ecs-generic-execution-role-prod",
+    "networkMode": "awsvpc",
+    "volumes": [
+        {
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-041fa888c069cca8d",
+                "rootDirectory": "/",
+                "transitEncryption": "ENABLED"
+            },
+            "name": "ews-efs-sites"
+        }
+    ],
+    "placementConstraints": [],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "cpu": "512",
+    "memory": "1024",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "enableFaultInjection": false
+}

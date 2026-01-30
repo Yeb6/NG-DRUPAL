@@ -1,0 +1,14 @@
+uuid: f2a9b711-77e1-4e57-ae44-396a37e59441
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.market_editor
+  module:
+    - user
+id: user_remove_role_action.market_editor
+label: 'Remove the Market Editor role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: market_editor

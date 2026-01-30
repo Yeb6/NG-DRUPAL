@@ -1,0 +1,14 @@
+uuid: 3b6cc66d-58ae-4d56-97b0-28b518dd8ddc
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.hq_editor
+  module:
+    - user
+id: user_remove_role_action.hq_editor
+label: 'Remove the HQ Editor role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: hq_editor

@@ -1,0 +1,22 @@
+uuid: c2f25962-0dea-43f1-b5d2-18d675eae315
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.projects
+id: taxonomy_term.projects.status
+field_name: status
+entity_type: taxonomy_term
+bundle: projects
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

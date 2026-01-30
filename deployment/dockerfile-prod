@@ -1,0 +1,29 @@
+FROM 386893269569.dkr.ecr.eu-central-1.amazonaws.com/drupal:ews
+
+WORKDIR /var/www/html
+
+# Copy Drupal code
+COPY . /var/www/html/ 
+COPY ./web/sites /tmp/sites
+# Copy custom Apache vhost
+COPY deployment/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+# Install Drush as a dev dependency (or global if you prefer)
+RUN composer require drush/drush --dev --no-interaction
+
+# Optional: make vendor/bin globally executable
+ENV PATH="/var/www/html/vendor/bin:${PATH}"
+
+# Permissions
+RUN mkdir -p /var/www/html/web/sites/default/files \
+ && chown -R www-data:www-data /var/www/html \
+ && find /var/www/html -type d -exec chmod 755 {} \; \
+ && find /var/www/html -type f -exec chmod 644 {} \;
+
+# Copy entrypoint
+COPY deployment/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+EXPOSE 80
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["apache2-foreground"]

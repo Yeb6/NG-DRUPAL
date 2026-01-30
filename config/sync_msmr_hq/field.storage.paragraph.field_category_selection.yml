@@ -1,0 +1,33 @@
+uuid: ff94d5bb-9f25-48f2-bb0c-01c25ff112f7
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_category_selection
+field_name: field_category_selection
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: principle
+      label: Principle
+    -
+      value: requirement
+      label: Requirement
+    -
+      value: procedure
+      label: Procedure
+    -
+      value: guideline_practical_example
+      label: 'Guideline/Practical Example'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,101 @@
+id: cms_articles_wmrusapc
+label: 'CMS Articles Migration - WMRUSAPC'
+migration_group: cms_migrations
+source:
+  plugin: json_file_source
+  content_type: fs_article
+  project_name: WMRUSAPC
+process:
+  type:
+    plugin: template_name_mapper
+    source_field: templateName
+  title: headline
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    default_value: 1
+  field_id:
+    plugin: json_field_mapper
+    source_field: _id
+  field_source_id:
+    plugin: json_field_mapper
+    source_field: fs_id
+  field_project_name:
+    plugin: project_taxonomy_lookup
+    vocabulary: projects
+    source_field: fs_project_name
+  field_hierarchy:
+    plugin: taxonomy_term_lookup
+    vocabulary: hierarchy
+    source_field: parentIentifier
+  field_hierarchy_level:
+    plugin: json_field_mapper
+    source_field: hierarchy_level
+  field_level_index:
+    plugin: json_field_mapper
+    source_field: level_index
+  field_fs_language:
+    plugin: language_mapper
+    source_field: fs_language
+  field_brand_classification:
+    plugin: json_field_mapper
+    source_field: brands
+  field_hierarchy_taxonomy_1:
+    plugin: json_field_mapper
+    source_field: parentIdentifier1
+  field_hierarchy_taxonomy_2:
+    plugin: json_field_mapper
+    source_field: parentIdentifier2
+  field_hierarchy_taxonomy_3:
+    plugin: json_field_mapper
+    source_field: parentIdentifier3
+  field_hierarchy_taxonomy_4:
+    plugin: json_field_mapper
+    source_field: parentIdentifier4
+  field_hierarchy_taxonomy_5:
+    plugin: json_field_mapper
+    source_field: parentIdentifier5
+  field_hierarchy_taxonomy_6:
+    plugin: json_field_mapper
+    source_field: parentIdentifier6
+  field_hierarchy_taxonomy_7:
+    plugin: json_field_mapper
+    source_field: parentIdentifier7
+  field_hierarchy_taxonomy_8:
+    plugin: json_field_mapper
+    source_field: parentIdentifier8
+  field_hierarchy_taxonomy_9:
+    plugin: json_field_mapper
+    source_field: parentIdentifier9
+  field_hierarchy_taxonomy_10:
+    plugin: json_field_mapper
+    source_field: parentIdentifier10
+  field_release_status:
+    plugin: json_field_mapper
+    source_field: release_status
+  field_template_name:
+    plugin: json_field_mapper
+    source_field: templateName
+  field_article_type:
+    plugin: article_type_mapper
+    source: templateName
+  field_create_section:
+    plugin: paragraph_creator
+    source_field: articles
+  field_attachments:
+    plugin: attachments_processor
+    source_field: articles
+  field_supplementary_topics_temp:
+    plugin: supplementary_topics_processor
+    source_field: articles
+  field_last_update:
+    plugin: last_update_processor
+    source_field: last_release_article
+  field_release_date:
+    plugin: json_field_mapper
+    source_field: LastReleaseDatetime
+destination:
+  plugin: entity:node
+migration_dependencies: {}

@@ -1,0 +1,20 @@
+uuid: d84d3364-0043-4255-865b-aab47fd06add
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.content_hierarchy
+  module:
+    - path
+id: taxonomy_term.content_hierarchy.path
+field_name: path
+entity_type: taxonomy_term
+bundle: content_hierarchy
+label: 'URL alias'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

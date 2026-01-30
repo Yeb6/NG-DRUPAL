@@ -1,0 +1,37 @@
+login:
+  authenticated:
+    redirect_url: ''
+    weight: '-10'
+  content_editor:
+    redirect_url: ''
+    weight: '-10'
+  administrator:
+    redirect_url: ''
+    weight: '-10'
+  hq_admin:
+    redirect_url: /admin/dashboard
+    weight: '-10'
+  hq_editor:
+    redirect_url: /admin/dashboard
+    weight: '-10'
+logout:
+  authenticated:
+    redirect_url: ''
+    weight: '-10'
+  content_editor:
+    redirect_url: ''
+    weight: '-10'
+  administrator:
+    redirect_url: ''
+    weight: '-10'
+  hq_admin:
+    redirect_url: ''
+    weight: '-10'
+  hq_editor:
+    redirect_url: ''
+    weight: '-10'
+ignore:
+  - '/user/reset/*'
+ignore_for:
+  login: login
+  logout: 0

@@ -1,0 +1,146 @@
+uuid: b7c9f8c2-f651-4858-9acb-2fb387284e43
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+    - media.type.audio
+    - media.type.document
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
+    - node.type.fs_article
+    - taxonomy.vocabulary.content_hierarchy
+    - taxonomy.vocabulary.hierarchy
+    - taxonomy.vocabulary.projects
+    - taxonomy.vocabulary.tags
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - contextual
+    - field_ui
+    - file
+    - filter
+    - media
+    - menu_admin_per_menu
+    - node
+    - paragraphs_type_permissions
+    - system
+    - taxonomy
+    - toolbar
+id: market_editor
+label: 'Market Editor'
+weight: 5
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access media overview'
+  - 'access taxonomy overview'
+  - 'access toolbar'
+  - 'administer main menu items'
+  - 'administer nodes'
+  - 'administer taxonomy'
+  - 'administer taxonomy_term display'
+  - 'administer taxonomy_term fields'
+  - 'administer taxonomy_term form display'
+  - 'bypass paragraphs type content access'
+  - 'create audio media'
+  - 'create document media'
+  - 'create fs_article content'
+  - 'create image media'
+  - 'create media'
+  - 'create paragraph content create_section'
+  - 'create remote_video media'
+  - 'create terms in content_hierarchy'
+  - 'create terms in hierarchy'
+  - 'create terms in projects'
+  - 'create terms in tags'
+  - 'create video media'
+  - 'delete all taxonomy revisions'
+  - 'delete any audio media'
+  - 'delete any audio media revisions'
+  - 'delete any document media'
+  - 'delete any document media revisions'
+  - 'delete any fs_article content'
+  - 'delete any image media'
+  - 'delete any image media revisions'
+  - 'delete any media'
+  - 'delete any remote_video media'
+  - 'delete any remote_video media revisions'
+  - 'delete any video media'
+  - 'delete any video media revisions'
+  - 'delete fs_article revisions'
+  - 'delete media'
+  - 'delete own audio media'
+  - 'delete own document media'
+  - 'delete own fs_article content'
+  - 'delete own image media'
+  - 'delete own remote_video media'
+  - 'delete own video media'
+  - 'delete paragraph content create_section'
+  - 'delete term revisions in content_hierarchy'
+  - 'delete term revisions in hierarchy'
+  - 'delete term revisions in projects'
+  - 'delete term revisions in tags'
+  - 'delete terms in content_hierarchy'
+  - 'delete terms in hierarchy'
+  - 'delete terms in projects'
+  - 'delete terms in tags'
+  - 'edit any audio media'
+  - 'edit any document media'
+  - 'edit any fs_article content'
+  - 'edit any image media'
+  - 'edit any remote_video media'
+  - 'edit any video media'
+  - 'edit own audio media'
+  - 'edit own document media'
+  - 'edit own fs_article content'
+  - 'edit own image media'
+  - 'edit own remote_video media'
+  - 'edit own video media'
+  - 'edit terms in content_hierarchy'
+  - 'edit terms in hierarchy'
+  - 'edit terms in projects'
+  - 'edit terms in tags'
+  - 'revert all taxonomy revisions'
+  - 'revert any audio media revisions'
+  - 'revert any document media revisions'
+  - 'revert any image media revisions'
+  - 'revert any remote_video media revisions'
+  - 'revert any video media revisions'
+  - 'revert fs_article revisions'
+  - 'revert term revisions in content_hierarchy'
+  - 'revert term revisions in hierarchy'
+  - 'revert term revisions in projects'
+  - 'revert term revisions in tags'
+  - 'update any media'
+  - 'update media'
+  - 'update paragraph content create_section'
+  - 'use editorial transition archive'
+  - 'use editorial transition archived_draft'
+  - 'use editorial transition archived_published'
+  - 'use editorial transition create_new_draft'
+  - 'use editorial transition publish'
+  - 'use editorial transition ready_for_distribute'
+  - 'use text format full_html'
+  - 'view all media revisions'
+  - 'view all taxonomy revisions'
+  - 'view any audio media revisions'
+  - 'view any document media revisions'
+  - 'view any image media revisions'
+  - 'view any remote_video media revisions'
+  - 'view any unpublished content'
+  - 'view any video media revisions'
+  - 'view fs_article revisions'
+  - 'view latest version'
+  - 'view own unpublished content'
+  - 'view own unpublished media'
+  - 'view paragraph content create_section'
+  - 'view term revisions in content_hierarchy'
+  - 'view term revisions in hierarchy'
+  - 'view term revisions in projects'
+  - 'view term revisions in tags'
+  - 'view the administration theme'
+  - 'view vocabulary labels'

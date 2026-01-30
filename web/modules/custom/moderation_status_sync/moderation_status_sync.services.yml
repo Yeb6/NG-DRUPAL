@@ -1,0 +1,10 @@
+services:
+  moderation_status_sync.moderation_sync_subscriber:
+    class: Drupal\moderation_status_sync\EventSubscriber\ModerationSyncSubscriber
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: event_subscriber }
+
+  moderation_status_sync.pull_form_alter:
+    class: Drupal\moderation_status_sync\Service\PullFormAlter
+    arguments: ['@language_manager']

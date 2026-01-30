@@ -1,0 +1,14 @@
+uuid: 6b5021fc-4204-48ca-a3fc-e97bf0398283
+langcode: en
+status: true
+dependencies:
+  module:
+    - cms_migrations
+_core:
+  default_config_hash: bqxaO7LhLgKwT6vlJEuZy00SruU0YABRySfYrYL4j3w
+id: cms_migrations
+label: 'CMS Migrations'
+description: 'Migration group for CMS content from JSON files'
+source_type: 'JSON Files'
+module: cms_migrations
+shared_configuration: {  }

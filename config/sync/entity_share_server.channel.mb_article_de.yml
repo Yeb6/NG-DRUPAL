@@ -1,0 +1,23 @@
+uuid: cb2adc27-1060-4341-b996-cff87180e5ae
+langcode: en
+status: true
+dependencies: {  }
+id: mb_article_de
+label: 'MB Article DE'
+channel_entity_type: node
+channel_bundle: fs_article
+channel_langcode: de
+channel_filters:
+  field_moderation_status:
+    path: field_moderation_status
+    operator: IN
+    value:
+      - ready_for_distribution
+      - published
+channel_groups: null
+channel_sorts: {  }
+channel_searches: null
+channel_maxsize: 50
+access_by_permission: true
+authorized_roles: {  }
+authorized_users: {  }

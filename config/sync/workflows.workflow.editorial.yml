@@ -1,0 +1,81 @@
+uuid: b7bc73e0-8808-48c1-a965-c0e84483d095
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.drupal_news
+    - node.type.fs_article
+  module:
+    - content_moderation
+_core:
+  default_config_hash: T7gMMyFbTYLalxpIOnzJebvek2OW0b1RgLVE9I2y228
+id: editorial
+label: Editorial
+type: content_moderation
+type_settings:
+  states:
+    archived:
+      label: Archived
+      weight: 5
+      published: false
+      default_revision: true
+    draft:
+      label: Draft
+      weight: -5
+      published: false
+      default_revision: false
+    published:
+      label: Published
+      weight: 0
+      published: true
+      default_revision: true
+    ready_for_distribution:
+      label: 'Ready for Distribution'
+      weight: 6
+      published: false
+      default_revision: false
+  transitions:
+    archive:
+      label: Archive
+      from:
+        - published
+      to: archived
+      weight: 0
+    archived_draft:
+      label: 'Restore to Draft'
+      from:
+        - archived
+      to: draft
+      weight: 1
+    archived_published:
+      label: Restore
+      from:
+        - archived
+      to: published
+      weight: 2
+    create_new_draft:
+      label: 'Create New Draft'
+      from:
+        - draft
+        - ready_for_distribution
+      to: draft
+      weight: -3
+    publish:
+      label: Publish
+      from:
+        - published
+        - ready_for_distribution
+      to: published
+      weight: -1
+    ready_for_distribute:
+      label: 'Ready for Distribute'
+      from:
+        - draft
+        - ready_for_distribution
+      to: ready_for_distribution
+      weight: -2
+  entity_types:
+    node:
+      - drupal_news
+      - fs_article
+  default_moderation_state: draft

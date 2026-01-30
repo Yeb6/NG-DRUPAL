@@ -1,0 +1,23 @@
+uuid: 6349089f-2a69-470b-bbb4-53594aa705aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_article_type
+    - node.type.fs_article
+  module:
+    - options
+id: node.fs_article.field_article_type
+field_name: field_article_type
+entity_type: node
+bundle: fs_article
+label: 'Article Type'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: chapter
+default_value_callback: ''
+settings: {  }
+field_type: list_string

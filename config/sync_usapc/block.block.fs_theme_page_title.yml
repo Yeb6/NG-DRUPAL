@@ -1,0 +1,20 @@
+uuid: 05106251-3c36-4671-a3ff-b60d2417dfc8
+langcode: en
+status: false
+dependencies:
+  theme:
+    - fs_theme
+_core:
+  default_config_hash: 6aOgWsNTXjqrDm98TXSAjP6qd2nCijD1xw45MrnbK-Y
+id: fs_theme_page_title
+theme: fs_theme
+region: header
+weight: -5
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

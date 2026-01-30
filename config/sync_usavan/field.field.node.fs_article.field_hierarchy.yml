@@ -1,0 +1,29 @@
+uuid: d4c53392-581a-42a9-8fb7-3cf4acef2227
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hierarchy
+    - node.type.fs_article
+    - taxonomy.vocabulary.hierarchy
+id: node.fs_article.field_hierarchy
+field_name: field_hierarchy
+entity_type: node
+bundle: fs_article
+label: Hierarchy
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      hierarchy: hierarchy
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

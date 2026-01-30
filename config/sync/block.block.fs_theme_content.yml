@@ -1,0 +1,22 @@
+uuid: 548eed3a-7f71-4531-bce3-da6fb2880ae5
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - fs_theme
+_core:
+  default_config_hash: erQSEZF2XUjNmgTl0uNRBzmg18ZGXwUcw2FhApoeuHk
+id: fs_theme_content
+theme: fs_theme
+region: content
+weight: -7
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

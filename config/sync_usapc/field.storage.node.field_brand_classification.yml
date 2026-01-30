@@ -1,0 +1,33 @@
+uuid: 6201783e-a9ec-46bb-b2d2-bcf83aa10aac
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_brand_classification
+field_name: field_brand_classification
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: mercedes_benz
+      label: Mercedes-Benz
+    -
+      value: smart
+      label: Smart
+    -
+      value: mercedes_benz_van
+      label: 'Mercedes-Benz Van'
+    -
+      value: maybach
+      label: Maybach
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

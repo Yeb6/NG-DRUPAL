@@ -1,0 +1,81 @@
+label: Kommentit
+display:
+  default:
+    display_title: Oletus
+    display_options:
+      title: Kommentit
+      fields:
+        comment_bulk_form:
+          action_title: Toiminto
+        subject:
+          label: Aihe
+        name:
+          label: Tekijä
+        entity_id:
+          label: Kirjoitus
+        changed:
+          label: Päivitetty
+        operations:
+          label: Toimenpiteet
+      pager:
+        options:
+          tags:
+            next: 'seuraava ›'
+            previous: '‹ edellinen'
+            first: '« ensimmäinen'
+            last: 'viimeinen »'
+          expose:
+            items_per_page_label: 'Merkintöjä sivua kohti'
+            items_per_page_options_all_label: '- Kaikki -'
+      exposed_form:
+        options:
+          submit_button: Suodatus
+          reset_button_label: Palauta
+          exposed_sorts_label: Lajittele
+      empty:
+        area_text_custom:
+          content: 'Kommentteja ei ole saatavilla.'
+      filters:
+        subject:
+          expose:
+            label: Aihe
+        combine:
+          expose:
+            label: 'Kirjoittajan nimi'
+        langcode:
+          expose:
+            label: Kieli
+      use_more_text: lisää
+  page_published:
+    display_title: 'Julkaistut kommentit'
+    display_options:
+      menu:
+        title: Kommentit
+  page_unapproved:
+    display_title: 'Hyväksyntää odottavat kommentit'
+    display_options:
+      fields:
+        comment_bulk_form:
+          action_title: Toiminto
+        subject:
+          label: Aihe
+        name:
+          label: Tekijä
+        entity_id:
+          label: Kirjoitus
+        changed:
+          label: Päivitetty
+        operations:
+          label: Toimenpiteet
+      filters:
+        subject:
+          expose:
+            label: Aihe
+        combine:
+          expose:
+            label: 'Tekijän nimi'
+        langcode:
+          expose:
+            label: Kieli
+      menu:
+        title: 'Hyväksyntää odottavat kommentit'

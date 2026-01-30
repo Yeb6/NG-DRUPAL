@@ -1,0 +1,28 @@
+uuid: 8cc066b1-0cdf-4976-a510-21a3ad934ee3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_supplementary_topics
+    - node.type.fs_article
+id: node.fs_article.field_supplementary_topics
+field_name: field_supplementary_topics
+entity_type: node
+bundle: fs_article
+label: 'Supplementary Topics'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      fs_article: fs_article
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,10 @@
+global-styling:
+  version: 1.x
+  css:
+    theme:
+      css/bootstrap-icons.css: {}
+      css/bootstrap.min.css: {}
+      css/style.css: {}
+  js:
+    js/bootstrap.bundle.min.js: {}
+    js/jquery.min.js: {}

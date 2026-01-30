@@ -1,0 +1,21 @@
+uuid: eb28f34c-ac5d-435c-b82a-1f98996442dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_last_update
+    - node.type.fs_article
+id: node.fs_article.field_last_update
+field_name: field_last_update
+entity_type: node
+bundle: fs_article
+label: 'Last Update'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

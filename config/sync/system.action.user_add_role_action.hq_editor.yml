@@ -1,0 +1,14 @@
+uuid: 286babda-d196-4c03-93b1-4312989442e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.hq_editor
+  module:
+    - user
+id: user_add_role_action.hq_editor
+label: 'Add the HQ Editor role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: hq_editor

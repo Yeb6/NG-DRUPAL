@@ -1,0 +1,21 @@
+display:
+  default:
+    display_title: Standard
+    display_options:
+      fields:
+        title:
+          label: Titel
+        changed:
+          label: Updated
+        operations:
+          label: Aktionen
+      exposed_form:
+        options:
+          submit_button: Filter
+      filters:
+        title:
+          expose:
+            label: Titel
+        langcode:
+          expose:
+            label: Sprache

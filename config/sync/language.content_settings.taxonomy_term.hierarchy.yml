@@ -1,0 +1,11 @@
+uuid: 6c265b29-233e-42cf-8d70-ae196215b037
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.hierarchy
+id: taxonomy_term.hierarchy
+target_entity_type_id: taxonomy_term
+target_bundle: hierarchy
+default_langcode: site_default
+language_alterable: false

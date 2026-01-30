@@ -1,0 +1,22 @@
+uuid: c26ee50c-26f4-4958-ac8c-14bb1c89ee03
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.hierarchy
+id: taxonomy_term.hierarchy.status
+field_name: status
+entity_type: taxonomy_term
+bundle: hierarchy
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

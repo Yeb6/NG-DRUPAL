@@ -1,0 +1,25 @@
+display:
+  default:
+    display_title: Standard
+    display_options:
+      fields:
+        media_bulk_form:
+          action_title: Action
+        bundle:
+          label: Typ
+        status:
+          label: Status
+        changed:
+          label: Updated
+        operations:
+          label: Aktionen
+      exposed_form:
+        options:
+          submit_button: Filter
+      filters:
+        bundle:
+          expose:
+            label: Typ
+        langcode:
+          expose:
+            label: Sprache

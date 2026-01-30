@@ -1,0 +1,24 @@
+uuid: 952be16c-57d9-41fd-9d41-d51cbd4828ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_new_release
+    - node.type.drupal_news
+  module:
+    - text
+id: node.drupal_news.field_new_release
+field_name: field_new_release
+entity_type: node
+bundle: drupal_news
+label: 'New Release'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

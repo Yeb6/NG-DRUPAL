@@ -1,0 +1,18 @@
+uuid: cfca3e56-2508-457a-a9d6-1a25574ddf4e
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.content_hierarchy
+id: taxonomy_term.content_hierarchy.name
+field_name: name
+entity_type: taxonomy_term
+bundle: content_hierarchy
+label: Name
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

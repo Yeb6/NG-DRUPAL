@@ -1,0 +1,9 @@
+services:
+  cms_migrations.commands:
+    class: Drupal\cms_migrations\Drush\Commands\CmsMigrationCommands
+    tags:
+      - { name: drush.command }
+  cms_migrations.supplementary_topics_update_commands:
+    class: Drupal\cms_migrations\Drush\Commands\SupplementaryTopicsUpdateCommands
+    tags:
+      - { name: drush.command }

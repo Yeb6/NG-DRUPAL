@@ -1,0 +1,21 @@
+services:
+  fs_article_tools.media_helper:
+    class: Drupal\fs_article_tools\MediaHelper
+    arguments: ['@file_url_generator']
+
+  fs_article_tools.node_form_alter:
+    class: Drupal\fs_article_tools\FormAlter\NodeFormAlter
+    arguments: ['@string_translation']
+
+  fs_article_tools.mb_article_form_submit:
+    class: Drupal\fs_article_tools\FormAlter\MBArticleFormSubmit
+
+  fs_article_tools.theme_subscriber:
+    class: Drupal\fs_article_tools\EventSubscriber\ThemeSubscriber
+    arguments:
+      - '@theme.manager'
+      - '@theme.initialization'
+    tags:
+      - { name: event_subscriber }
+
+  

@@ -1,0 +1,31 @@
+display:
+  default:
+    display_title: Standard
+    display_options:
+      fields:
+        comment_bulk_form:
+          action_title: Action
+        changed:
+          label: Updated
+        operations:
+          label: Aktionen
+      exposed_form:
+        options:
+          submit_button: Filter
+      filters:
+        langcode:
+          expose:
+            label: Sprache
+  page_unapproved:
+    display_options:
+      fields:
+        comment_bulk_form:
+          action_title: Action
+        changed:
+          label: Updated
+        operations:
+          label: Aktionen
+      filters:
+        langcode:
+          expose:
+            label: Sprache

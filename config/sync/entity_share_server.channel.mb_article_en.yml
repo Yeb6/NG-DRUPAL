@@ -1,0 +1,28 @@
+uuid: bdef4c8f-80d1-4430-989a-7532ffa73003
+langcode: en
+status: true
+dependencies: {  }
+id: mb_article_en
+label: 'MB Article EN'
+channel_entity_type: node
+channel_bundle: fs_article
+channel_langcode: en
+channel_filters:
+  field_moderation_status:
+    path: field_moderation_status
+    operator: IN
+    value:
+      - ready_for_distribution
+      - published
+channel_groups: null
+channel_sorts: {  }
+channel_searches: null
+channel_maxsize: 50
+access_by_permission: true
+authorized_roles:
+  administrator: administrator
+  hq_admin: hq_admin
+authorized_users:
+  1d1a34d1-d53f-441a-8fee-1de560e59d24: 1d1a34d1-d53f-441a-8fee-1de560e59d24
+  ac7f5215-17e7-45e9-9ba7-fdc12b875f63: ac7f5215-17e7-45e9-9ba7-fdc12b875f63
+  d4c58f59-c02e-44e1-80ec-150551455f20: d4c58f59-c02e-44e1-80ec-150551455f20

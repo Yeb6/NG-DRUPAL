@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Moderation status sync module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the Entity Share pull entity form.
+ */
+function moderation_status_sync_form_entity_share_client_pull_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  /** @var \Drupal\moderation_status_sync\Service\PullFormAlter $form_alter */
+  $form_alter = \Drupal::service('moderation_status_sync.pull_form_alter');
+  $form_alter->alterForm($form, $form_state, $form_id);
+}

@@ -1,0 +1,6 @@
+id: cms_migrations
+label: 'CMS Migrations'
+description: 'Migration group for CMS content from JSON files'
+source_type: 'JSON Files'
+module: cms_migrations
+shared_configuration: {}

@@ -1,0 +1,14 @@
+uuid: 12c4de7a-f2af-4e9e-aeb6-86919949dda5
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.msmr_hq_admin
+  module:
+    - user
+id: user_add_role_action.msmr_hq_admin
+label: 'Add the MSMR HQ Admin role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: msmr_hq_admin

@@ -1,0 +1,116 @@
+_core:
+  default_config_hash: 4G3ZLDsRi9C4iY4bCwOic0mB4J30EDCdhYfFHWClXos
+cron_interval: 300
+page_limit: 0
+remotes:
+  hq_remote_website:
+    enabled: true
+    channels:
+      drupal_news_en:
+        enabled: true
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_bg:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_cs:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_da:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_de:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_el:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_en:
+        enabled: true
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_fi:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_fr:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_hu:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_it:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_nl:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_pl:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_pt:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_ro:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_sk:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_sl:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true
+      mb_article_tr:
+        enabled: false
+        import_config: content_import_from_hq
+        operations:
+          create: true
+          update: true

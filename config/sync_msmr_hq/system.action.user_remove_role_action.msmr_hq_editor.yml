@@ -1,0 +1,14 @@
+uuid: feccfd3b-88e7-41ef-a213-f07fdbe203b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.msmr_hq_editor
+  module:
+    - user
+id: user_remove_role_action.msmr_hq_editor
+label: 'Remove the MSMR HQ Editor role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: msmr_hq_editor

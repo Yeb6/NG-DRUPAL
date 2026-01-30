@@ -1,0 +1,18 @@
+uuid: 20dac32b-0df8-4b21-9a63-be4f5e906d3c
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.hierarchy
+id: taxonomy_term.hierarchy.name
+field_name: name
+entity_type: taxonomy_term
+bundle: hierarchy
+label: Name
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

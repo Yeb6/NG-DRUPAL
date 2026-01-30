@@ -1,0 +1,44 @@
+name: Run CodeSniffer 
+
+on:
+  workflow_dispatch:
+    branches: [ "*"]
+
+jobs:
+  phpcs:
+    name: PHP CodeSniffer
+    runs-on: [ road-runner ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: mbstring, xml, curl, gd, zip, intl, bcmath
+          ini-values: post_max_size=256M, upload_max_filesize=128M
+          coverage: none
+
+      - name: Get Composer
+        run: |
+          curl -sS https://getcomposer.org/installer | php
+          sudo mv composer.phar /usr/local/bin/composer
+
+      - name: Install dependencies (including dev for sniffer)
+        run: composer install --no-interaction
+
+      - name: Install PHP_CodeSniffer + Drupal coder (if not present)
+        run: composer require --dev squizlabs/php_codesniffer drupal/coder || true
+
+      - name: Run PHP CodeSniffer (Drupal standard)
+        run: |
+          PHPCS_BIN="./vendor/bin/phpcs"
+          if [ ! -x "$PHPCS_BIN" ]; then
+            echo "phpcs binary not found at $PHPCS_BIN"
+            exit 1
+          fi
+          echo "Running phpcs (Drupal standard)"
+          $PHPCS_BIN --standard=Drupal --extensions=php,module,inc,install,test,profile,info,css,js .

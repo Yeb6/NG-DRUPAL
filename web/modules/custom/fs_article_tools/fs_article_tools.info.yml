@@ -1,0 +1,5 @@
+name: 'FS Article Tools'
+type: module
+description: 'Provides media helpers and form alterations for FS Article nodes.'
+core_version_requirement: ^10
+package: Custom

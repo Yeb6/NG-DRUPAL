@@ -1,0 +1,19 @@
+uuid: 1a41b139-5e26-4e9b-8637-64bff836519e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_project_name
+    - taxonomy.vocabulary.projects
+id: taxonomy_term.projects.field_project_name
+field_name: field_project_name
+entity_type: taxonomy_term
+bundle: projects
+label: 'Project Name'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

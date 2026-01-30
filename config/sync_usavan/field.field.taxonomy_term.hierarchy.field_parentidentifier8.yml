@@ -1,0 +1,19 @@
+uuid: 7dedbdf8-29d6-484d-8036-aebf70f9d73c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_parentidentifier8
+    - taxonomy.vocabulary.hierarchy
+id: taxonomy_term.hierarchy.field_parentidentifier8
+field_name: field_parentidentifier8
+entity_type: taxonomy_term
+bundle: hierarchy
+label: parentIdentifier8
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,19 @@
+uuid: 98866245-4974-4aba-8361-91351e687bae
+langcode: en
+status: true
+dependencies:
+  module:
+    - fs_article_tools
+    - node
+id: node.field_article_hierarchy
+field_name: field_article_hierarchy
+entity_type: node
+type: articles_hierarchy
+settings: {  }
+module: fs_article_tools
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

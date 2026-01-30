@@ -1,0 +1,34 @@
+uuid: 5a3af8e0-0b93-46d6-8056-4435d3415c59
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.drupal_news.field_moderation_status
+    - field.field.node.drupal_news.field_new_release
+    - field.field.node.drupal_news.field_system_update
+    - field.field.node.drupal_news.field_user_manual
+    - node.type.drupal_news
+  module:
+    - user
+id: node.drupal_news.teaser
+targetEntityType: node
+bundle: drupal_news
+mode: teaser
+content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_moderation_status: true
+  field_new_release: true
+  field_system_update: true
+  field_user_manual: true
+  langcode: true

@@ -1,0 +1,21 @@
+uuid: d89d706d-a6e1-45af-a2c8-dabe1b875089
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_brand_classification
+    - node.type.fs_article
+  module:
+    - options
+id: node.fs_article.field_brand_classification
+field_name: field_brand_classification
+entity_type: node
+bundle: fs_article
+label: 'Brand Classification'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

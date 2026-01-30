@@ -1,0 +1,13 @@
+/* Make current site bold in toolbar */
+.toolbar-menu li.current-site a {
+  font-weight: bold;
+}
+
+/* Add your custom logo */
+.toolbar-icon-admin-toolbar-tools-help {
+  background-image: url('/modules/custom/jwt_auto_login/images/logo.png');
+  background-size: 30px 30px ;
+  background-repeat: no-repeat ;
+  background-position: center;
+  text-indent: -9999px;
+}

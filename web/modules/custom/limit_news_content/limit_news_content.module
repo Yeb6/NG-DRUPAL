@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Restricts News content creation to one node per admin/editor user.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+
+/**
+ * Implements hook_form_alter().
+ */
+function limit_news_content_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Check if the form is the "Add News" content form.
+  if ($form_id === 'node_drupal_news_form') {
+    $current_user = \Drupal::currentUser();
+    $roles = $current_user->getRoles();
+
+    // Apply restriction only for admins.
+    if (in_array('administrator', $roles) || in_array('hq_admin', $roles) || in_array('hq_editor', $roles) ||  in_array('msmr_hq_admin', $roles) || in_array('msmr_hq_editor', $roles)) {
+      // Query for existing News nodes created by this admin.
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'drupal_news')
+        ->range(0, 1)
+        ->accessCheck(FALSE);
+      $existing = $query->execute();
+
+      if (!empty($existing)) {
+        // Prevent access to the form.
+        \Drupal::messenger()->addError('You are allowed to create only one News content.');
+        throw new AccessDeniedHttpException();
+      }
+    }
+  }
+}

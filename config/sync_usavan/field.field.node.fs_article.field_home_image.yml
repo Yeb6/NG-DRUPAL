@@ -1,0 +1,29 @@
+uuid: ea91e873-3413-4e19-8f17-2524e524a2df
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_home_image
+    - media.type.image
+    - node.type.fs_article
+id: node.fs_article.field_home_image
+field_name: field_home_image
+entity_type: node
+bundle: fs_article
+label: Image
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

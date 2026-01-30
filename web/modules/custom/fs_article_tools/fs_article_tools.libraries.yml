@@ -1,0 +1,15 @@
+jstree_widget:
+  version: 1.x
+  css:
+    theme:
+      css/jstree/style.min.css: {} 
+  js:
+    js/jstree/jquery.min.js: { minified: true }  
+    js/jstree/jstree.min.js: { minified: true }      
+    js/jstree/article_hierarchy.js: {}                               
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - core/jquery
+    - core/drupal.summary

@@ -1,0 +1,10 @@
+settings:
+  plugins:
+    ckeditor5_codeBlock:
+      languages:
+        0:
+          label: 'Obyčajný text'
+        4:
+          label: 'CSS vzhľad'
+        5:
+          label: Rozdiel

@@ -1,0 +1,18 @@
+uuid: ba2726ff-a4e0-4e95-b120-c661e71297a7
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.remote_video
+id: media.remote_video.created
+field_name: created
+entity_type: media
+bundle: remote_video
+label: 'Authored on'
+description: 'The time the media item was created.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\media\Entity\Media::getRequestTime'
+settings: {  }
+field_type: created

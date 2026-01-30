@@ -1,0 +1,45 @@
+uuid: 4e0ed390-c797-49fd-a43c-1ae64ce82fac
+langcode: en
+status: true
+dependencies: {  }
+id: content_import_from_hq
+label: 'Content Import from HQ'
+import_maxsize: 50
+import_processor_settings:
+  changed_time:
+    weights:
+      process_entity: 100
+  default_data_processor:
+    weights:
+      is_entity_importable: -10
+      post_entity_save: 0
+      prepare_importable_entity_data: -100
+    policy: default
+    update_policy: false
+  embedded_entity_importer:
+    weights:
+      prepare_importable_entity_data: 20
+  entity_reference:
+    weights:
+      process_entity: 30
+    max_recursion_depth: -1
+  link_internal_content_importer:
+    weights:
+      prepare_importable_entity_data: 20
+  path_alias_processor:
+    weights:
+      prepare_importable_entity_data: -100
+  physical_file:
+    weights:
+      process_entity: 0
+    rename: true
+  revision:
+    weights:
+      prepare_importable_entity_data: 0
+      process_entity: 10
+    enforce_new_revision: true
+    translation_affected: true
+    revision_log_message: automatic
+  skip_imported:
+    weights:
+      is_entity_importable: -5

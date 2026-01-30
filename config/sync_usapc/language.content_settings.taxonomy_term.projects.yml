@@ -1,0 +1,18 @@
+uuid: 23b446d7-7219-4978-b8d1-aaca032cbe9c
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.projects
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: taxonomy_term.projects
+target_entity_type_id: taxonomy_term
+target_bundle: projects
+default_langcode: site_default
+language_alterable: false

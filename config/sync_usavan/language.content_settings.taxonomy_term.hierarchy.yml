@@ -1,0 +1,18 @@
+uuid: cb673324-821e-40ae-b4c9-24104c9baf84
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.hierarchy
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: taxonomy_term.hierarchy
+target_entity_type_id: taxonomy_term
+target_bundle: hierarchy
+default_langcode: site_default
+language_alterable: false

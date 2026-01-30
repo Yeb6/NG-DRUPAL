@@ -1,0 +1,12 @@
+display:
+  default:
+    display_title: Standard
+    display_options:
+      fields:
+        changed:
+          label: Updated
+        operations:
+          label: Aktionen
+      exposed_form:
+        options:
+          submit_button: Apply

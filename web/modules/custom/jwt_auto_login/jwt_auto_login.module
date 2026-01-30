@@ -1,0 +1,95 @@
+<?php
+
+use Drupal\Core\Session\AccountInterface;
+use Drupal\user\Entity\User;
+use Drupal\Core\Url;
+use Drupal\toolbar\Controller\ToolbarController;
+use Drupal\Core\Render\Renderer;
+
+/**
+ * Implements hook_user_logout().
+ */
+function jwt_auto_login_user_logout(AccountInterface $account) {
+  // Clear JWT session on logout
+  $session = \Drupal::service('session');
+  $session->remove('jwt_auto_login_token');
+  $session->remove('jwt_auto_login_links');
+}
+
+/**
+ * Implements hook_toolbar_alter().
+ */
+function jwt_auto_login_toolbar_alter(&$items) {
+
+    // Check if the Admin Toolbar Tools item exists.
+  if (isset($items['admin_toolbar_tools'])) {
+    // Change the class to use a custom icon class.
+    $items['admin_toolbar_tools']['tab']['#attributes']['class'] = [
+      'toolbar-icon',
+    ];
+
+    // Remove the default admin_toolbar_tools library if attached.
+    if (isset($items['admin_toolbar_tools']['#attached']['library'])) {
+      $items['admin_toolbar_tools']['#attached']['library'] = [
+        'jwt_auto_login/toolbar_styles',
+      ];
+    }
+    else {
+      $items['admin_toolbar_tools']['#attached']['library'][] = 'jwt_auto_login/toolbar_styles';
+    }
+  }
+
+  // Get market links from your controller
+  $controller = \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(\Drupal\jwt_auto_login\Controller\MarketLinksController::class);
+  $render_array = $controller->show();
+
+  // Render the links as <li>
+  $market_links = [];
+  if (!empty($render_array['#items'])) {
+    foreach ($render_array['#items'] as $link) {
+      $url = $link['#url']->toString();
+      $title = $link['#title'];
+      $target = $link['#attributes']['target'] ?? '_blank';
+      $classes = implode(' ', $link['#attributes']['class'] ?? []);
+
+      $market_links[] = [
+        '#markup' => '<li' . ($classes ? ' class="' . $classes . '"' : '') . '>'
+          . '<a href="' . $url . '" target="' . $target . '">' . $title . '</a></li>',
+      ];
+    }
+  }
+
+  // Combine into <ul> and add inline CSS for bold
+  $market_links_html = '<ul class="toolbar-menu">' . implode('', array_map(function($item) {
+    return $item['#markup'];
+  }, $market_links)) . '</ul>';
+
+
+  $items['jwt_auto_login.markets_menu'] = [
+  '#type' => 'toolbar_item',
+  'tab' => [
+    '#type' => 'link',
+    '#title' => t('Market Sites'),
+    '#url' => Url::fromRoute('<none>'), // Don't navigate
+    '#attributes' => [
+      'title' => t('Auto-login to market sites'),
+      'class' => ['toolbar-icon-menu','toolbar-menu-markets'],
+      'data-drupal-subtrees' => '',
+    ],
+    '#attached' => [
+      'library' => [
+        'jwt_auto_login/toolbar_styles',
+      ],
+    ],
+  ],
+  'tray' => [
+    'toolbar_market_links' => [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['toolbar-menu-markets']],
+      '#markup' => $market_links_html,
+    ],
+  ],
+  '#weight' => 16,
+];
+}

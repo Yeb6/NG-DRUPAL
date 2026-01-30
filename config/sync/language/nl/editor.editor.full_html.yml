@@ -1,0 +1,10 @@
+settings:
+  plugins:
+    ckeditor5_codeBlock:
+      languages:
+        0:
+          label: 'Platte tekst'
+        5:
+          label: Diff
+        11:
+          label: Robijnrood

@@ -1,0 +1,7 @@
+name: JWT Auto Login
+type: module
+description: Provides JWT auto-login links for HQ users to access market sites.
+package: Custom
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:user

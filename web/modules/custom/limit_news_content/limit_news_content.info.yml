@@ -1,0 +1,5 @@
+name: Limit News Content
+type: module
+description: "Restrict administrators to only 1 News content"
+core_version_requirement: ^10
+package: Custom

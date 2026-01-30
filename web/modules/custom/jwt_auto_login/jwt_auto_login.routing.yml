@@ -1,0 +1,23 @@
+jwt_auto_login.route:
+  path: '/auto-login'
+  defaults:
+    _controller: '\Drupal\jwt_auto_login\Controller\AutoLoginController::autoLogin'
+    _title: 'Auto Login'
+  requirements:
+    _permission: 'access content'
+
+jwt_auto_login.market_links:
+  path: '/admin/markets'
+  defaults:
+    _controller: '\Drupal\jwt_auto_login\Controller\MarketLinksController::show'
+    _title: 'Market Sites'
+  requirements:
+    _permission: 'access content'
+
+jwt_auto_login.settings:
+  path: '/admin/config/system/jwt-auto-login'
+  defaults:
+    _form: '\Drupal\jwt_auto_login\Form\JwtAutoLoginSettingsForm'
+    _title: 'JWT Auto Login Settings'
+  requirements:
+    _permission: 'administer site configuration'

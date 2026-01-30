@@ -1,0 +1,24 @@
+label: Archiválás
+description: 'Minden tartalom, hónaponként csoportosítva.'
+display:
+  default:
+    display_title: Alapértelmezés
+    display_options:
+      title: 'Havi archívum'
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Elemek száma oldalanként'
+            items_per_page_options_all_label: '– Mind –'
+            offset_label: Eltolás
+      exposed_form:
+        options:
+          submit_button: Alkalmaz
+          reset_button_label: Alaphelyzet
+          exposed_sorts_label: Rendezés
+          sort_asc_label: Növ
+          sort_desc_label: Csökk
+  block_1:
+    display_title: Blokk
+  page_1:
+    display_title: Oldal

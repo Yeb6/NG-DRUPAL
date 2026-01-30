@@ -1,0 +1,19 @@
+uuid: 44550d73-d12c-4743-b170-71c325bab6cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_level_index
+    - taxonomy.vocabulary.hierarchy
+id: taxonomy_term.hierarchy.field_level_index
+field_name: field_level_index
+entity_type: taxonomy_term
+bundle: hierarchy
+label: 'Level Index'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

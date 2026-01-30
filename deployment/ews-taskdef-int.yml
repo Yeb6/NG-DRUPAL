@@ -1,0 +1,76 @@
+{
+    "family": "ews",
+    "containerDefinitions": [
+        {
+            "cpu": 0,
+            "environment": [
+                {
+                    "name": "DRUPAL_DB_HOST",
+                    "value": "<DRUPAL_DB_HOST>"
+                },
+                {
+                    "name": "DRUPAL_DB_USERNAME",
+                    "value": "<DRUPAL_DB_USERNAME>"
+                },
+                {
+                    "name": "DRUPAL_DB_PASSWORD",
+                    "value": "<DRUPAL_DB_PASSWORD>"
+                }
+            ],
+            "essential": true,
+            "image": "675210801575.dkr.ecr.eu-central-1.amazonaws.com/uat/ews@sha256:bc3624f069b5f6ee4e9d5d817de5ee1c8c0c9823a394cc8923f81d32bb598d03",
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ews/uat/",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "eu-central-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "mountPoints": [
+                {
+                    "containerPath": "/var/www/html/web/sites",
+                    "readOnly": false,
+                    "sourceVolume": "ews-efs-sites"
+                }
+            ],
+            "name": "ews",
+            "portMappings": [
+                {
+                    "appProtocol": "http",
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "name": "http",
+                    "protocol": "tcp"
+                }
+            ],
+            "systemControls": [],
+            "volumesFrom": []
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::675210801575:role/eWS-ecs-generic-task-role-uat",
+    "executionRoleArn": "arn:aws:iam::675210801575:role/eWS-ecs-generic-execution-role-uat",
+    "networkMode": "awsvpc",
+    "volumes": [
+        {
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-07faf4eef927f6822",
+                "rootDirectory": "/"
+            },
+            "name": "ews-efs-sites"
+        }
+    ],
+    "placementConstraints": [],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "cpu": "512",
+    "memory": "1024",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "enableFaultInjection": false
+}

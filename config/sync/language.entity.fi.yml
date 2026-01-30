@@ -1,0 +1,9 @@
+uuid: 6fbb43fe-bee2-4909-8de6-a0a9fcfe31cc
+langcode: en
+status: true
+dependencies: {  }
+id: fi
+label: Finnish
+direction: ltr
+weight: 7
+locked: false

@@ -1,0 +1,83 @@
+label: Commenti
+display:
+  default:
+    display_title: Predefinito
+    display_options:
+      title: Commenti
+      fields:
+        comment_bulk_form:
+          action_title: Azione
+        subject:
+          label: Oggetto
+        name:
+          label: Autore
+        entity_id:
+          label: 'Inserito in'
+        changed:
+          label: Aggiornato
+        operations:
+          label: Operazioni
+      pager:
+        options:
+          tags:
+            next: 'seguente ›'
+            previous: '‹ precedente'
+            first: '« prima'
+            last: 'ultima »'
+          expose:
+            items_per_page_label: 'Voci per pagina'
+            items_per_page_options_all_label: '- Tutto -'
+            offset_label: Scostamento
+      exposed_form:
+        options:
+          submit_button: Filtra
+          reset_button_label: Ripristina
+          exposed_sorts_label: 'Ordina per'
+          sort_desc_label: Disc
+      empty:
+        area_text_custom:
+          content: 'Nessun commento disponibile.'
+      filters:
+        subject:
+          expose:
+            label: Oggetto
+        combine:
+          expose:
+            label: "Nome dell'autore"
+        langcode:
+          expose:
+            label: Lingua
+      use_more_text: altro
+  page_published:
+    display_title: 'Commenti pubblicati'
+    display_options:
+      menu:
+        title: Commenti
+  page_unapproved:
+    display_title: 'Commenti non approvati'
+    display_options:
+      fields:
+        comment_bulk_form:
+          action_title: Azione
+        subject:
+          label: Oggetto
+        name:
+          label: Autore
+        entity_id:
+          label: 'Inserito in'
+        changed:
+          label: Aggiornato
+        operations:
+          label: Operazioni
+      filters:
+        subject:
+          expose:
+            label: Oggetto
+        combine:
+          expose:
+            label: "Nome dell'autore"
+        langcode:
+          expose:
+            label: Lingua
+      menu:
+        title: 'Commenti non approvati'

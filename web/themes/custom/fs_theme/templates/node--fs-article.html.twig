@@ -1,0 +1,121 @@
+<div class="container-fluid navigation-links"></div>
+
+<div class="container-fluid search-topbar">
+	<div class="row">
+		<div class="col nav-links-section">
+			<h3>
+				<i class="bi bi-tag-fill"></i>
+				{{ node.title.value }}</h3>
+		</div>
+	</div>
+</div>
+<div class="container-fluid content-wrapper-div">
+	<div class="tab-content" id="nav-tabContent">
+		<div class="tab-pane fade show active" id="nav-home">
+
+
+			{% if node.field_create_section[0].entity.field_content is not empty and  node.field_create_section[0].entity.field_category_selection is not empty %}
+				<div class="accordion" id="accordionExample">
+					{% set number_words = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'] %}
+
+					{% for item in node.field_create_section %}
+						{% set paragraph = item.entity %}
+						{% set index_word = number_words[loop.index0] %}
+						{% set collapse_id = 'collapse' ~ index_word %}
+						{% set heading_id = 'heading' ~ index_word %}
+						{% set data_target = '#' ~ collapse_id %}
+						{% set is_first = loop.first %}
+
+						{% set raw_value = paragraph.field_category_selection.value %}
+						{% if raw_value == 'guideline_practical_example' %}
+							{% set label = raw_value|replace({'_': ' '})|title %}
+							{% set label_parts = label|split(' ', 2) %}
+							{% set button_label = label_parts[0] ~ '/' ~ label_parts[1] %}
+						{% else %}
+							{% set button_label = raw_value|replace({'_': ' '})|title %}
+						{% endif %}
+
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="{{ heading_id }}">
+								<button class="accordion-button {% if not is_first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="{{ data_target }}" aria-expanded="{{ is_first ? 'true' : 'false' }}" aria-controls="{{ collapse_id }}">
+									{{ button_label }}
+								</button>
+							</h2>
+
+							<div id="{{ collapse_id }}" class="accordion-collapse collapse {% if is_first %}show{% endif %}" aria-labelledby="{{ heading_id }}" data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+									{{ paragraph.field_content.value|raw }}
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+
+			{% endif %}
+
+			<div class="article-details">
+
+				{% if node.field_brand_classification[0] is defined and node.field_brand_classification[0] is not empty %}
+					<div class="brands-details">
+						<p>
+							<b>Valid for the brands</b>
+						</p>
+						<p>
+							{% for item in node.field_brand_classification %}
+								{% set value = item.value|replace({'_': ' '})|lower %}
+								{% if value == 'mercedes benz' %}
+									Mercedes-Benz
+								{% else %}
+									{{ value|title }}
+								{% endif %}
+								{% if not loop.last %},
+								{% endif %}
+							{% endfor %}
+						</p>
+					</div>
+				{% endif %}
+
+				{% if media_items is not empty %}
+					<div class="supplementary-details">
+						<p>
+							<b>Supplementary Attachment</b>
+						</p>
+						<ul>
+							{% for item in media_items %}
+								<li>
+									{% if item.type == 'image' %}
+										<a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">
+											{{ item.filename }}"
+										</a>
+									{% elseif item.type == 'document' %}
+										<a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">
+											{{ item.filename }}
+										</a>
+									{% endif %}
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+
+				{% if node.field_supplementary_topics[0] is defined and node.field_supplementary_topics[0] is not empty %}
+					<div class="supplementary-details">
+						<p>
+							<b>Supplementary Topics</b>
+						</p>
+						<ul>
+							{% for item in node.field_supplementary_topics %}
+								{% set target_node = item.entity %}
+								<li>
+									<a href="{{ path('entity.node.canonical', {'node': target_node.id()}) }}">
+										{{ target_node.title.value }}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>

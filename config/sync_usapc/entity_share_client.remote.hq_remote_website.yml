@@ -1,0 +1,13 @@
+uuid: 6157b829-5745-4206-9bf7-9b1e3479c32b
+langcode: en
+status: true
+dependencies: {  }
+id: hq_remote_website
+label: 'HQ Remote Website'
+url: 'https://wmr-hq-main.ddev.site'
+auth:
+  pid: basic_auth
+  uuid: 7e8998fd-6a75-497d-8ca7-aebdd75b99f8
+  data:
+    credential_provider: entity_share
+    storage_key: 7e8998fd-6a75-497d-8ca7-aebdd75b99f8

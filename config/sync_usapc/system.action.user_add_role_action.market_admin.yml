@@ -1,0 +1,14 @@
+uuid: b802cc98-d90d-4c81-be54-323576b46a43
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.market_admin
+  module:
+    - user
+id: user_add_role_action.market_admin
+label: 'Add the Market Admin role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: market_admin

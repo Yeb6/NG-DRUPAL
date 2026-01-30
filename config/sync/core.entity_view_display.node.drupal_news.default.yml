@@ -1,0 +1,52 @@
+uuid: 52bd1c66-7050-41cd-8b42-1820ca098c36
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.drupal_news.field_moderation_status
+    - field.field.node.drupal_news.field_new_release
+    - field.field.node.drupal_news.field_system_update
+    - field.field.node.drupal_news.field_user_manual
+    - node.type.drupal_news
+  module:
+    - text
+    - user
+id: node.drupal_news.default
+targetEntityType: node
+bundle: drupal_news
+mode: default
+content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_new_release:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_system_update:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_user_manual:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_moderation_status: true
+  langcode: true

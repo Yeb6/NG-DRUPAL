@@ -1,0 +1,14 @@
+uuid: fb42a661-04a9-4f42-876f-8edc09777cb0
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.msmr_market_editor
+  module:
+    - user
+id: user_remove_role_action.msmr_market_editor
+label: 'Remove the MSMR Market Editor role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: msmr_market_editor

@@ -1,0 +1,310 @@
+name: Deployment (INT)
+
+on:
+  workflow_dispatch:
+    branches: [ "develop" ]
+
+env:               
+  IMAGE_TAG: ${{ github.sha }}
+
+jobs:
+  # # ==========================================
+  # # Stage 1: CodeQL Security Scan
+  # # ==========================================
+  # codeql-scan:
+  #   name: CodeQL Scan (Security Analysis)
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     actions: read
+  #     contents: read
+  #     security-events: write
+    
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
+
+  #     - name: Initialize CodeQL
+  #       uses: github/codeql-action/init@v3
+  #       with:
+  #         languages: javascript,python,java,go,csharp
+  #         queries: security-and-quality
+
+  #     - name: Perform CodeQL autobuild
+  #       uses: github/codeql-action/autobuild@v3
+
+  #     - name: Run CodeQL analysis and upload results
+  #       uses: github/codeql-action/analyze@v3
+  #       with:
+  #         upload: true
+
+  # ==========================================
+  # Stage 2: Build and Push Docker Image
+  # ==========================================
+  build-and-push:
+    name: Build & Push Docker Image to ECR
+    runs-on: [ road-runner ]
+    environment: INT
+    #needs: [ codeql-scan ]  # Wait for security scan to complete
+    outputs:
+      image_uri: ${{ steps.output-uri.outputs.image_uri }}
+      image_tag: ${{ env.IMAGE_TAG }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials from INT environment secrets
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push Docker image to ECR
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./deployment/dockerfile-int
+          push: true
+          tags: ${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ vars.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          cache-from: type=registry,ref=${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ vars.ECR_REPOSITORY }}:buildcache
+          cache-to: type=inline
+
+      - name: Output pushed image URI
+        id: output-uri
+        run: |
+          IMAGE_URI="${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ vars.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"
+          echo "image_uri=$IMAGE_URI" >> $GITHUB_OUTPUT
+          echo "✅ Image pushed: $IMAGE_URI"
+
+  # ==========================================
+  # Stage 3: Register Task Definition & Deploy to ECS
+  # ==========================================
+  deploy-to-ecs:
+    name: Register Task Definition & Deploy to ECS
+    runs-on: [ road-runner ]
+    environment: INT
+    needs: [ build-and-push ]
+    outputs:
+      deployment_id: ${{ steps.deploy-service.outputs.deployment_id }}
+      task_definition_arn: ${{ steps.register-taskdef.outputs.taskdef_arn }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Ensure jq is available
+        run: |
+          if ! command -v jq >/dev/null 2>&1; then
+            sudo apt-get update && sudo apt-get install -y jq
+          fi
+
+      - name: Replace placeholders in task definition
+        id: prepare-taskdef
+        run: |
+          IMAGE_TAG="${{ needs.build-and-push.outputs.image_tag }}"
+          echo "📝 Preparing task definition with IMAGE_TAG: $IMAGE_TAG"
+          
+          cp deployment/ews-taskdef-int.yml ews-taskdef-int-for-register.yml
+          sed -i "s|<IMAGE_TAG>|$IMAGE_TAG|g" ews-taskdef-int-for-register.yml
+          sed -i "s|<DRUPAL_DB_HOST>|${{ vars.DRUPAL_DB_HOST }}|g" ews-taskdef-int-for-register.yml
+          sed -i "s|<DRUPAL_DB_USERNAME>|${{ vars.DRUPAL_DB_USERNAME }}|g" ews-taskdef-int-for-register.yml
+          sed -i "s|<DRUPAL_DB_PASSWORD>|${{ secrets.DRUPAL_DB_PASSWORD }}|g" ews-taskdef-int-for-register.yml
+          
+          echo "Updated task definition (first 40 lines):"
+          head -n 40 ews-taskdef-int-for-register.yml
+          echo "taskdef_file=ews-taskdef-int-for-register.yml" >> $GITHUB_OUTPUT
+
+      - name: Register new ECS task definition revision
+        id: register-taskdef
+        run: |
+          set -euo pipefail
+          TASKDEF_FILE="${{ steps.prepare-taskdef.outputs.taskdef_file }}"
+          
+          echo "📋 Registering new task definition from $TASKDEF_FILE"
+          
+          REGISTER_OUT=$(aws ecs register-task-definition \
+            --cli-input-yaml file://$TASKDEF_FILE \
+            --region ${{ vars.AWS_REGION }} \
+            --output json)
+          
+          echo "$REGISTER_OUT" > register-output.json
+          
+          TASKDEF_ARN=$(jq -r '.taskDefinition.taskDefinitionArn' register-output.json)
+          
+          if [ -z "$TASKDEF_ARN" ] || [ "$TASKDEF_ARN" = "null" ]; then
+            echo "❌ Failed to register task definition. Output:"
+            cat register-output.json
+            exit 1
+          fi
+          
+          echo "✅ Registered task definition: $TASKDEF_ARN"
+          echo "taskdef_arn=$TASKDEF_ARN" >> $GITHUB_OUTPUT
+          
+          # Store in environment for use in same job
+          echo "TASKDEF_ARN=$TASKDEF_ARN" >> $GITHUB_ENV
+
+      - name: Deploy new task definition to ECS service
+        id: deploy-service
+        run: |
+          set -euo pipefail
+          CLUSTER_NAME="${{ vars.ECS_CLUSTER || 'default' }}"
+          SERVICE_NAME="${{ vars.ECR_SERVICE_NAME }}"
+          TASKDEF_ARN="${{ env.TASKDEF_ARN }}"
+          
+          echo "🚀 Deploying to ECS service '$SERVICE_NAME' in cluster '$CLUSTER_NAME'"
+          echo "   Task Definition: $TASKDEF_ARN"
+          
+          aws ecs update-service \
+            --cluster "$CLUSTER_NAME" \
+            --service "$SERVICE_NAME" \
+            --force-new-deployment \
+            --task-definition "$TASKDEF_ARN" \
+            --region ${{ vars.AWS_REGION }} \
+            --output json > update-service-output.json
+          
+          echo "📊 Service update summary:"
+          jq -r '.service | {serviceName: .serviceName, taskDefinition: .taskDefinition, desiredCount: .desiredCount, runningCount: .runningCount}' update-service-output.json
+          
+          # Extract deployment ID
+          DEPLOYMENT_ID=$(jq -r '.service.deployments[0].id' update-service-output.json)
+          echo "deployment_id=$DEPLOYMENT_ID" >> $GITHUB_OUTPUT
+          echo "✅ ECS service update triggered (Deployment ID: $DEPLOYMENT_ID)"
+
+      - name: Show initial deployment status
+        run: |
+          CLUSTER_NAME="${{ vars.ECS_CLUSTER || 'default' }}"
+          SERVICE_NAME="${{ vars.ECR_SERVICE_NAME }}"
+          
+          echo "📋 Current deployments for $SERVICE_NAME:"
+          aws ecs describe-services \
+            --cluster "$CLUSTER_NAME" \
+            --services "$SERVICE_NAME" \
+            --region ${{ vars.AWS_REGION }} \
+            --output json | jq -r '.services[].deployments | .[] | {id: .id, status: .status, desiredCount: .desiredCount, pendingCount: .pendingCount, runningCount: .runningCount}'
+
+  # ==========================================
+  # Stage 4: Wait for Deployment Completion
+  # ==========================================
+  wait-for-deployment:
+    name: Wait for Deployment to Complete
+    runs-on: [ road-runner ]
+    environment: INT
+    needs: [ deploy-to-ecs ]
+    
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Ensure jq is available
+        run: |
+          if ! command -v jq >/dev/null 2>&1; then
+            sudo apt-get update && sudo apt-get install -y jq
+          fi
+
+      - name: Wait for ECS deployment to stabilize
+        timeout-minutes: 30
+        run: |
+          set -euo pipefail
+          CLUSTER_NAME="${{ vars.ECS_CLUSTER || 'default' }}"
+          SERVICE_NAME="${{ vars.ECR_SERVICE_NAME }}"
+          DEPLOYMENT_ID="${{ needs.deploy-to-ecs.outputs.deployment_id }}"
+          MAX_ATTEMPTS=60
+          SLEEP_INTERVAL=30
+          
+          echo "⏳ Waiting for deployment $DEPLOYMENT_ID to complete..."
+          echo "   Max wait time: $((MAX_ATTEMPTS * SLEEP_INTERVAL / 60)) minutes"
+          
+          for i in $(seq 1 $MAX_ATTEMPTS); do
+            echo ""
+            echo "🔍 Check $i/$MAX_ATTEMPTS ($(date '+%H:%M:%S'))"
+            
+            SERVICE_INFO=$(aws ecs describe-services \
+              --cluster "$CLUSTER_NAME" \
+              --services "$SERVICE_NAME" \
+              --region ${{ vars.AWS_REGION }} \
+              --output json)
+            
+            # Get deployment status
+            DEPLOYMENT_STATUS=$(echo "$SERVICE_INFO" | jq -r --arg DEPLOYMENT_ID "$DEPLOYMENT_ID" \
+              '.services[].deployments[] | select(.id == $DEPLOYMENT_ID) | .rolloutState // "IN_PROGRESS"')
+            
+            RUNNING_COUNT=$(echo "$SERVICE_INFO" | jq -r --arg DEPLOYMENT_ID "$DEPLOYMENT_ID" \
+              '.services[].deployments[] | select(.id == $DEPLOYMENT_ID) | .runningCount')
+            
+            DESIRED_COUNT=$(echo "$SERVICE_INFO" | jq -r --arg DEPLOYMENT_ID "$DEPLOYMENT_ID" \
+              '.services[].deployments[] | select(.id == $DEPLOYMENT_ID) | .desiredCount')
+            
+            PENDING_COUNT=$(echo "$SERVICE_INFO" | jq -r --arg DEPLOYMENT_ID "$DEPLOYMENT_ID" \
+              '.services[].deployments[] | select(.id == $DEPLOYMENT_ID) | .pendingCount')
+            
+            echo "   Status: $DEPLOYMENT_STATUS"
+            echo "   Tasks: $RUNNING_COUNT running, $PENDING_COUNT pending (desired: $DESIRED_COUNT)"
+            
+            # Check if deployment is complete
+            if [ "$DEPLOYMENT_STATUS" = "COMPLETED" ]; then
+              echo ""
+              echo "✅ Deployment completed successfully!"
+              echo "   Final state: $RUNNING_COUNT/$DESIRED_COUNT tasks running"
+              exit 0
+            fi
+            
+            # Check for failed deployment
+            if [ "$DEPLOYMENT_STATUS" = "FAILED" ]; then
+              echo ""
+              echo "❌ Deployment failed!"
+              echo "$SERVICE_INFO" | jq -r '.services[].events[:5]'
+              exit 1
+            fi
+            
+            # Show recent service events
+            echo "   Recent events:"
+            echo "$SERVICE_INFO" | jq -r '.services[].events[:2] | .[] | "     [\(.createdAt)] \(.message)"'
+            
+            if [ $i -lt $MAX_ATTEMPTS ]; then
+              echo "   Waiting ${SLEEP_INTERVAL}s before next check..."
+              sleep $SLEEP_INTERVAL
+            fi
+          done
+          
+          echo ""
+          echo "⚠️  Timeout reached after $((MAX_ATTEMPTS * SLEEP_INTERVAL / 60)) minutes"
+          echo "   Deployment may still be in progress. Check AWS Console for details."
+          exit 1
+
+      - name: Final deployment summary
+        if: success()
+        run: |
+          CLUSTER_NAME="${{ vars.ECS_CLUSTER || 'default' }}"
+          SERVICE_NAME="${{ vars.ECR_SERVICE_NAME }}"
+          
+          echo ""
+          echo "🎉 Deployment Summary"
+          echo "===================="
+          aws ecs describe-services \
+            --cluster "$CLUSTER_NAME" \
+            --services "$SERVICE_NAME" \
+            --region ${{ vars.AWS_REGION }} \
+            --output json | jq -r '.services[] | {
+              serviceName: .serviceName,
+              status: .status,
+              desiredCount: .desiredCount,
+              runningCount: .runningCount,
+              taskDefinition: .taskDefinition,
+              deployments: [.deployments[] | {id: .id, status: .status, rolloutState: .rolloutState}]
+            }'

@@ -1,0 +1,33 @@
+uuid: 97bc2e6c-0597-40bb-ba6a-ffce8e919555
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_article_type
+field_name: field_article_type
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: chapter
+      label: Chapter
+    -
+      value: ews_article
+      label: 'eWS Article'
+    -
+      value: ews_news
+      label: 'eWS News'
+    -
+      value: home
+      label: Home
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

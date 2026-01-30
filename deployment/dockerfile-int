@@ -1,0 +1,82 @@
+FROM drupal:10.5-php8.4-apache
+
+# Install Composer (if not already present)
+RUN apt-get update && apt-get install -y unzip git curl \
+ && apt-get install -y --no-install-recommends rsync \
+ && apt-get install -y nano cron \
+ && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+ && rm -rf /var/lib/apt/lists/*
+
+# Install system packages needed for building PHP extensions
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        build-essential \
+        autoconf \
+        pkg-config \
+        libxml2-dev \
+        libxslt1-dev \
+        zlib1g-dev \
+        libssl-dev \
+        libcurl4-openssl-dev \
+        default-libmysqlclient-dev \
+        gettext \
+    && rm -rf /var/lib/apt/lists/*
+
+# Configure extensions that need it
+RUN docker-php-ext-configure mysqli --with-mysqli=mysqlnd \
+ && docker-php-ext-configure xsl
+
+# Install extensions that need compilation
+RUN docker-php-ext-install -j"$(nproc)" \
+      calendar \
+      exif \
+      ftp \
+      gettext \
+      mysqli \
+      pcntl \
+      shmop \
+      sockets \
+      sysvmsg \
+      sysvsem \
+      sysvshm \
+      xsl
+
+# Enable FFI safely (no compile needed)
+RUN echo "ffi.enable=1" > /usr/local/etc/php/conf.d/ffi.ini
+
+# Clean up build tools to reduce image size
+RUN apt-get purge -y --auto-remove build-essential autoconf pkg-config
+
+WORKDIR /var/www/html
+# Copy Drupal code
+COPY . /var/www/html/ 
+COPY web/sites /tmp/sites
+# Copy custom Apache vhost
+COPY deployment/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+# Install Drush as a dev dependency (or global if you prefer)
+RUN composer require drush/drush --dev --no-interaction
+
+# Optional: make vendor/bin globally executable
+ENV PATH="/var/www/html/vendor/bin:${PATH}"
+
+# Permissions
+RUN mkdir -p /var/www/html/web/sites/default/files \
+ && chown -R www-data:www-data /var/www/html \
+ && find /var/www/html -type d -exec chmod 755 {} \; \
+ && find /var/www/html -type f -exec chmod 644 {} \;
+
+# Add cron job to run drush cron every 5 minutes and log output
+# RUN echo "*/5 * * * * cd /var/www/html && /usr/bin/php ./vendor/bin/drush cron >> /var/log/drush-cron.log 2>&1" > /etc/cron.d/drush-cron \
+#  && chmod 0644 /etc/cron.d/drush-cron \
+#  && crontab /etc/cron.d/drush-cron \
+#  && touch /var/log/drush-cron.log \
+#  && chown www-data:www-data /var/log/drush-cron.log
+
+# Start cron service and apache2
+COPY deployment/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+EXPOSE 80
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+#CMD ["cron", "-f", "&", "apache2-foreground"]
+CMD ["apache2-foreground"]

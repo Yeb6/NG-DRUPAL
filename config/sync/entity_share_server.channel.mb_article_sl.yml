@@ -1,0 +1,23 @@
+uuid: d047abe6-71aa-4a33-b079-0643ebf8091d
+langcode: en
+status: true
+dependencies: {  }
+id: mb_article_sl
+label: 'MB Article SL'
+channel_entity_type: node
+channel_bundle: fs_article
+channel_langcode: sl
+channel_filters:
+  field_moderation_status:
+    path: field_moderation_status
+    operator: IN
+    value:
+      - ready_for_distribution
+      - published
+channel_groups: null
+channel_sorts: {  }
+channel_searches: null
+channel_maxsize: 50
+access_by_permission: true
+authorized_roles: {  }
+authorized_users: {  }

@@ -1,0 +1,59 @@
+display:
+  default:
+    display_title: Predefinito
+    display_options:
+      fields:
+        media_bulk_form:
+          action_title: Azione
+        thumbnail__target_id:
+          label: Miniatura
+        bundle:
+          label: Tipo
+        uid:
+          label: Autore
+        status:
+          label: Stato
+          settings:
+            format_custom_false: 'Non pubblicato'
+            format_custom_true: Pubblicato
+        changed:
+          label: Aggiornato
+        operations:
+          label: Operazioni
+      pager:
+        options:
+          tags:
+            next: 'Seguente ›'
+            previous: '‹ Precedente'
+            first: '« Prima'
+            last: 'Ultima »'
+          expose:
+            items_per_page_label: 'Voci per pagina'
+            items_per_page_options_all_label: '- Tutto -'
+            offset_label: Scostamento
+      exposed_form:
+        options:
+          submit_button: Filtra
+          reset_button_label: Ripristina
+          exposed_sorts_label: 'Ordina per'
+          sort_desc_label: Disc
+      empty:
+        area_text_custom:
+          content: 'Non è disponibile alcun contributo mediale.'
+      filters:
+        bundle:
+          expose:
+            label: Tipo
+        status:
+          expose:
+            label: Vero
+          group_info:
+            label: 'Stato pubblicazione'
+            group_items:
+              1:
+                title: Pubblicato
+              2:
+                title: 'Non pubblicato'
+        langcode:
+          expose:
+            label: Lingua

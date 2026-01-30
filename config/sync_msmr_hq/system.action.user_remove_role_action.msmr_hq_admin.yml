@@ -1,0 +1,14 @@
+uuid: 17fa11f8-6f5a-4615-9b1e-071d4bb15832
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.msmr_hq_admin
+  module:
+    - user
+id: user_remove_role_action.msmr_hq_admin
+label: 'Remove the MSMR HQ Admin role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: msmr_hq_admin

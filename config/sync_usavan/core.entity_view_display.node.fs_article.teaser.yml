@@ -1,0 +1,54 @@
+uuid: 75341710-ae2b-4c58-b127-581a33f49b76
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.fs_article.field_article_hierarchy
+    - field.field.node.fs_article.field_article_type
+    - field.field.node.fs_article.field_attachments
+    - field.field.node.fs_article.field_brand_classification
+    - field.field.node.fs_article.field_create_section
+    - field.field.node.fs_article.field_hierarchy
+    - field.field.node.fs_article.field_home_image
+    - field.field.node.fs_article.field_id
+    - field.field.node.fs_article.field_last_update
+    - field.field.node.fs_article.field_moderation_status
+    - field.field.node.fs_article.field_project_name
+    - field.field.node.fs_article.field_release_date
+    - field.field.node.fs_article.field_source_id
+    - field.field.node.fs_article.field_supplementary_topics
+    - node.type.fs_article
+  module:
+    - user
+id: node.fs_article.teaser
+targetEntityType: node
+bundle: fs_article
+mode: teaser
+content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_article_hierarchy: true
+  field_article_type: true
+  field_attachments: true
+  field_brand_classification: true
+  field_create_section: true
+  field_hierarchy: true
+  field_home_image: true
+  field_id: true
+  field_last_update: true
+  field_moderation_status: true
+  field_project_name: true
+  field_release_date: true
+  field_source_id: true
+  field_supplementary_topics: true
+  langcode: true

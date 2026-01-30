@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Theme hooks and preprocess functions for the fs_theme theme.
+ */
+
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function fs_theme_preprocess_node(array &$variables) {
+  $node = $variables['node'];
+
+  if ($node instanceof NodeInterface && $node->bundle() === 'fs_article') {
+    /** @var \Drupal\fs_article_tools\MediaHelper $media_helper */
+    $media_helper = \Drupal::service('fs_article_tools.media_helper');
+    $variables['media_items'] = $media_helper->getMediaItems($node);
+  }
+}

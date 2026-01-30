@@ -1,0 +1,21 @@
+uuid: 89779482-19ba-46ef-9b21-984b812d5d9e
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.hierarchy
+  module:
+    - text
+id: taxonomy_term.hierarchy.description
+field_name: description
+entity_type: taxonomy_term
+bundle: hierarchy
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

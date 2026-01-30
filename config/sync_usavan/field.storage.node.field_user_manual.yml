@@ -1,0 +1,19 @@
+uuid: f0948f51-7539-451d-9932-04c5d3c34c05
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_user_manual
+field_name: field_user_manual
+entity_type: node
+type: text_with_summary
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

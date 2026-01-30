@@ -1,0 +1,19 @@
+uuid: 09d6d953-3f3d-41f6-ba61-82755404d648
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_source_id
+    - node.type.fs_article
+id: node.fs_article.field_source_id
+field_name: field_source_id
+entity_type: node
+bundle: fs_article
+label: 'FS Source ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

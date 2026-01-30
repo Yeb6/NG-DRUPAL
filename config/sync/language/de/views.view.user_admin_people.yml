@@ -1,0 +1,21 @@
+display:
+  default:
+    display_title: Standard
+    display_options:
+      fields:
+        name:
+          label: Username
+        status:
+          label: Status
+        operations:
+          label: Aktionen
+      exposed_form:
+        options:
+          submit_button: Filter
+      filters:
+        status:
+          group_info:
+            label: Status
+        roles_target_id:
+          expose:
+            label: Rolle

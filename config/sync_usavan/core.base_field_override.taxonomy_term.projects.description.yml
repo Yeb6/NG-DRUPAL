@@ -1,0 +1,21 @@
+uuid: 7ecb506e-ee34-4f4d-9012-bb2569ded1a5
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.projects
+  module:
+    - text
+id: taxonomy_term.projects.description
+field_name: description
+entity_type: taxonomy_term
+bundle: projects
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

@@ -1,0 +1,14 @@
+uuid: c444143e-c9b0-418f-90b0-7056bd1eb605
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.msmr_market_admin
+  module:
+    - user
+id: user_remove_role_action.msmr_market_admin
+label: 'Remove the MSMR Market Admin role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: msmr_market_admin

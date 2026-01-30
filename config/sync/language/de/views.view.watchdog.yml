@@ -1,0 +1,25 @@
+display:
+  default:
+    display_title: Standard
+    display_options:
+      fields:
+        severity:
+          label: Severity
+        type:
+          label: Typ
+        message:
+          label: Message
+        name:
+          label: User
+        link:
+          label: Aktionen
+      exposed_form:
+        options:
+          submit_button: Filter
+      filters:
+        type:
+          expose:
+            label: Typ
+        severity:
+          expose:
+            label: Severity

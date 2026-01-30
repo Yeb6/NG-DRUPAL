@@ -1,0 +1,31 @@
+uuid: 300fcff7-5cc0-42f8-8153-1b0acd55e5a1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_attachments
+    - media.type.document
+    - media.type.image
+    - node.type.fs_article
+id: node.fs_article.field_attachments
+field_name: field_attachments
+entity_type: node
+bundle: fs_article
+label: Attachments
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      document: document
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: document
+field_type: entity_reference

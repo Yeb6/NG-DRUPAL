@@ -1,0 +1,120 @@
+name: Run command in ECS task
+
+on:
+  workflow_dispatch:
+    inputs:
+      command:
+        description: "Command to execute inside the container (e.g. ls -la /var/www/html)"
+        required: true
+        default: "ls -la /var/www/html"
+      target_env:
+        description: "Target environment (used to pick cluster/service). Example: INT, PROD"
+        required: true
+        default: "INT"
+
+jobs:
+  ecs-exec:
+    name: Execute command in ECS
+    runs-on: [ road-runner ]
+    environment: ${{ github.event.inputs.target_env }}
+
+    steps:
+      - name: Checkout repo (optional)
+        uses: actions/checkout@v4
+
+      - name: Show inputs (debug)
+        run: |
+          echo "github.event.inputs.command='${{ github.event.inputs.command }}'"
+          echo "github.event.inputs.target_env='${{ github.event.inputs.target_env }}'"
+
+      - name: Determine environment variables
+        id: set-env
+        run: |
+          # Choose cluster name and service name based on selected environment
+          TARGET_ENV="${{ github.event.inputs.target_env }}"
+          # prefer repository/organization variable if set, otherwise derive
+          DEFAULT_CLUSTER="${{ vars.ECS_CLUSTER }}"
+          DEFAULT_SERVICE="${{ vars.ECR_SERVICE_NAME }}"
+
+          # Map environment -> cluster or service if you have env-specific names
+          # Example: adjust mappings below if your clusters/services are named differently per env
+          if [ "$TARGET_ENV" = "INT" ]; then
+            CLUSTER_NAME="${{ vars.ECS_CLUSTER }}"
+            SERVICE_NAME="${{ vars.ECR_SERVICE_NAME }}"
+          elif [ "$TARGET_ENV" = "PROD" ]; then
+            CLUSTER_NAME="${{ vars.ECS_CLUSTER }}"
+            SERVICE_NAME="${{ vars.ECR_SERVICE_NAME }}"
+          else
+            CLUSTER_NAME="$DEFAULT_CLUSTER"
+            SERVICE_NAME="$DEFAULT_SERVICE"
+          fi
+
+          echo "Selected cluster: $CLUSTER_NAME"
+          echo "Selected service: $SERVICE_NAME"
+
+          # Export values for subsequent steps
+          echo "CLUSTER_NAME=$CLUSTER_NAME" >> $GITHUB_ENV
+          echo "SERVICE_NAME=$SERVICE_NAME" >> $GITHUB_ENV
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Install Session Manager plugin
+        run: |
+          if ! command -v session-manager-plugin >/dev/null 2>&1; then
+            echo "Installing AWS Session Manager plugin..."
+            curl -sSL "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o /tmp/session-manager-plugin.deb
+            sudo dpkg -i /tmp/session-manager-plugin.deb || sudo apt-get install -f -y
+          fi
+          session-manager-plugin --version
+
+      - name: Find running ECS task
+        id: find_task
+        run: |
+          set -euo pipefail
+          CLUSTER_NAME="${CLUSTER_NAME}"
+          SERVICE_NAME="${SERVICE_NAME}"
+          echo "Finding running task for service $SERVICE_NAME in cluster $CLUSTER_NAME..."
+
+          # Get the first running task ARN for the service
+          TASK_ARN=$(aws ecs list-tasks \
+            --cluster "$CLUSTER_NAME" \
+            --service-name "$SERVICE_NAME" \
+            --desired-status RUNNING \
+            --query "taskArns[0]" \
+            --output text)
+
+          if [ -z "$TASK_ARN" ] || [ "$TASK_ARN" = "None" ]; then
+            echo "No running task found for service $SERVICE_NAME in cluster $CLUSTER_NAME"
+            exit 1
+          fi
+
+          echo "Found task: $TASK_ARN"
+          echo "TASK_ARN=$TASK_ARN" >> $GITHUB_ENV
+
+      - name: Execute command inside container
+        env:
+          EXEC_COMMAND: ${{ github.event.inputs.command }}
+        run: |
+          set -euo pipefail
+          # Use the exported env values
+          CLUSTER_NAME="${CLUSTER_NAME}"
+          TASK_ARN="${TASK_ARN}"
+          SERVICE_NAME="${SERVICE_NAME}"
+          CONTAINER_NAME="ews"   # change if your container name is different
+          CMD="${EXEC_COMMAND}"
+
+          echo "About to run on cluster: $CLUSTER_NAME, task: $TASK_ARN, container: $CONTAINER_NAME"
+          echo "Command: $CMD"
+
+          # Run execute-command
+          aws ecs execute-command \
+            --cluster "$CLUSTER_NAME" \
+            --task "$TASK_ARN" \
+            --container "$CONTAINER_NAME" \
+            --interactive \
+            --command "/bin/bash -lc \"$CMD\""

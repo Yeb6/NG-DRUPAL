@@ -1,0 +1,10 @@
+display:
+  default:
+    display_title: Standard
+    display_options:
+      fields:
+        title:
+          label: Titel
+      exposed_form:
+        options:
+          submit_button: Apply

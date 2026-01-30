@@ -1,0 +1,14 @@
+uuid: 392f1273-7bb4-48d6-bdcd-f3fa64e4bda7
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.msmr_market_admin
+  module:
+    - user
+id: user_add_role_action.msmr_market_admin
+label: 'Add the MSMR Market Admin role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: msmr_market_admin
